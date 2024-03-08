@@ -394,7 +394,7 @@ function templateEditOverlayDueDate(task) {
 
 function templateEditOverlayPrioUrgent() {
   return `
-      <input class="input-addtask" type="radio" id="urgent-edit" name="priority" value="urgent" />
+      <input class="input-addtask" type="radio" id="urgent-edit" name="priority-edit" value="urgent" />
       <label for="urgent-edit" class="radio-button" id="urgent-radio" onclick="invertSvgFillsEdit('urgent'); handleClick('urgent')">Urgent
         <svg id="urgent-icon-edit" width="21" height="16" viewBox="0 0 21 16" fill="none"
           xmlns="http://www.w3.org/2000/svg">
@@ -413,7 +413,7 @@ function templateEditOverlayPrioUrgent() {
 
 function templateEditOverlayPrioMedium() {
   return `
-      <input class="input-addtask" type="radio" id="medium-edit" name="priority" value="medium" />
+      <input class="input-addtask" type="radio" id="medium-edit" name="priority-edit" value="medium" />
       <label for="medium-edit" class="radio-button" id="medium-radio" onclick="invertSvgFillsEdit('medium');handleClick('medium')">Medium
         <svg id="medium-icon-edit" width="21" height="8" viewBox="0 0 21 8" fill="none"
           xmlns="http://www.w3.org/2000/svg">
@@ -432,7 +432,7 @@ function templateEditOverlayPrioMedium() {
 
 function templateEditOverlayPrioLow() {
   return `
-      <input class="input-addtask" type="radio" id="low-edit" name="priority" value="low" />
+      <input class="input-addtask" type="radio" id="low-edit" name="priority-edit" value="low" />
       <label for="low-edit" class="radio-button" id="low-radio" onclick="invertSvgFillsEdit('low');handleClick('low')">Low
         <svg id="low-icon-edit" width="21" height="16" viewBox="0 0 21 16" fill="none"
           xmlns="http://www.w3.org/2000/svg">

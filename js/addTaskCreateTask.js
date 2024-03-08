@@ -12,7 +12,7 @@ async function addTask(index) {
   let title = document.getElementById("title");
   let taskDescription = document.getElementById("taskDescription");
   let date = document.getElementById("date");
-  let prio = getPriorityValue();
+  let prio = getPriorityValue(index);
   let category = document.getElementById("category");
   let task = await createTaskObject(id, title.value, taskDescription.value, date.value, prio, category.value, index);
   if (index !== undefined) {
@@ -31,14 +31,25 @@ async function addTask(index) {
  * @author Christian Förster
  */
 
-function getPriorityValue() {
+function getPriorityValue(index) {
   let prioInputs = document.getElementsByName("priority");
+  let prioInputsEdit = document.getElementsByName("priority-edit");
   let prio;
-  for (let i = 0; i < prioInputs.length; i++) {
-    if (prioInputs[i].checked) {
-      prio = prioInputs[i].value;
+
+  if (index != undefined) {
+    for (let i = 0; i < prioInputsEdit.length; i++) {
+      if (prioInputsEdit[i].checked) {
+        prio = prioInputsEdit[i].value;
+      }
+    }
+  }else{
+    for (let i = 0; i < prioInputs.length; i++) {
+      if (prioInputs[i].checked) {
+        prio = prioInputs[i].value;
+      }
     }
   }
+
   return prio;
 }
 
