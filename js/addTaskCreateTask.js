@@ -120,11 +120,15 @@ async function addNewTask(task) {
  */
 
 function handleLocation(index) {
-  if (window.location.href == "https://join-63.developerakademie.net/board.html" && index == undefined) {
+  if (window.location.href == "https://kevin-mueller.developerakademie.net/board.html" && index == undefined) {
     subtasks = [];
     closeOverlayAddTask(true);
   }
-  if (window.location.href == "https://join-63.developerakademie.net/add-task.html") {
+  if (window.location.href == "127.0.0.1:5500/board.html" && index == undefined) {
+    subtasks = [];
+    closeOverlayAddTask(true);
+  }
+  if (window.location.href == "https://kevin-mueller.developerakademie.net/add-task.html") {
     translateTaskAddedElementAndRedirect();
   }
 }

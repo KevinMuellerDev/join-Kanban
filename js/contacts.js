@@ -9,7 +9,7 @@ async function initContacts() {
   contacts = await getItemContacts("contacts");
   id = await getItemContacts("id");
   logedInUser = await getItemContacts("logedInUser");
-  setLogedInUserInContactsArray()
+  //setLogedInUserInContactsArray()
   if (logedInUser.length == 0) {
     navigateToIndex();
   }
@@ -123,7 +123,7 @@ async function saveNewUserData() {
   id++;
   setItem("id", id);
   setItem("userData", userData);
-  if (window.location.href == 'https://join-63.developerakademie.net/index.html' || 'http://127.0.0.1:5500/index.html') {
+  if (window.location.href == 'https://kevin-mueller.developerakademie.net/index.html' || 'http://127.0.0.1:5500/index.html') {
     showRegistrationAnimation();
   }
 }
@@ -493,12 +493,12 @@ function disabledBtn() {
 
 }
 
-async function ifEmailIsValisAddorEditContacts(functionName) {
+async function ifEmailIsValisAddorEditContacts() {
   let email = document.getElementById("email").value.trim();
   if (await !isValidEmail(email)) {
     return
   } else {
-    functionName
+    addNewContactToContactlist();
     closeRenderContactCardSlide()
   }
 }

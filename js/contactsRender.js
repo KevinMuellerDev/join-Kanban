@@ -76,7 +76,7 @@ function renderAddNewContact() {
     const formConfig = {
         cardName: "Add contact",
         secondText: "Tasks are better with a team!",
-        functionName: `addNewContactToContactlist()`,
+        functionName: `addNewContactToContactlist`,
         secontFunction: `closeRenderContactCardSlide()`,
         deleteOrClosebtn: "Close",
         saveOrCreateContact: "Create contact",
