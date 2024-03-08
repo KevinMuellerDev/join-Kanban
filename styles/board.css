@@ -305,7 +305,7 @@
     gap: 24px;
     position: absolute;
     left: 150vw;
-    max-height: 843px;
+    max-height: 80%;
     width: calc(525px - 80px);
     background-color: white;
     z-index: 2000;

@@ -177,7 +177,7 @@
 .button-container {
   width: 100%;
   position: absolute;
-  bottom: -230px;
+  bottom: -203px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
