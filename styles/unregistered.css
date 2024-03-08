@@ -1,0 +1,35 @@
+.menu {
+    display: none;
+}
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo-cont {
+    margin-top: 33px;
+}
+
+.rights-cont {
+    margin-bottom: 32px;
+}
+
+.profil-loged-in-init {
+    display: none;
+}
+
+.profil-loged-in-init {
+    display: none;
+}
+
+.info-img-container {
+    display: none;
+}
+
+@media(max-width:1023px){
+
+    .main-header {
+        display: none;
+    }
+}

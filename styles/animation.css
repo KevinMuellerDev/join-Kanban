@@ -1,0 +1,60 @@
+.animation-main-cont {
+    position: absolute;
+    display: flex;
+    height: 100vh;
+    width: 100%;
+  }
+
+  .change-height {
+    animation: change-height 2s ease-in-out forwards;
+  }
+
+  @keyframes change-height {
+    from {
+      height: 100vh;
+    }
+    to {
+      height: 0vh;
+    }
+  }
+
+  .change-logo-color {
+    animation: change-logo-color 1s ease-in-out forwards;
+  }
+
+  @keyframes change-logo-color {
+    from {
+      fill: white;
+    }
+    to {
+      fill: var(--button-color);
+    }
+  }
+
+  .change-background-color {
+    animation: change-background-color 2s ease-in-out;
+  }
+
+  @keyframes change-background-color {
+    from {
+      background-color: var(--button-color);
+    }
+    to {
+      background-color: var(--background-color-site);
+    }
+  }
+
+  @keyframes move-logo {
+    from {
+      top: 50%;
+      left: 50%;
+      width: 300px;
+      height: 400px;
+    }
+    to {
+      top: 100px;
+      left: 100px;
+      width: 100px;
+      height: 120px;
+    }
+  }

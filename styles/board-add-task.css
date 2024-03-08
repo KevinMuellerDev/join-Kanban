@@ -1,0 +1,294 @@
+.task-headline {
+    position: relative;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 74px;
+    top: 64px;
+    width: 100%;
+}
+
+.task-headline img {
+    position: absolute;
+    top: 0px;
+    right: 128px;
+    cursor: pointer;
+}
+
+.task-headline img:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 50% 50%;
+}
+
+.add-task-overlay {
+    position: fixed;
+    width: 1116px;
+    height: 90%;
+    background-color: white;
+    border-radius: 30px;
+    z-index: 1000;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+    top: calc(50% - 435px);
+    left: 150vw;
+    transition: all 125ms ease-in-out;
+}
+
+.addtask-side-left {
+    display: flex;
+    position: absolute;
+    top: 174px;
+    left: 74px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 440px;
+    height: 376px;
+}
+
+.divider {
+    position: absolute;
+    left: 562.25px;
+    top: 174px;
+    width: 1px;
+    background-color: #d1d1d1;
+    height: 424px;
+}
+
+.addtask-side-right {
+    display: flex;
+    position: absolute;
+    top: 174px;
+    left: 610.25px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 440px;
+    height: 376px;
+}
+
+.input-container textarea {
+    border: 1px solid #D1D1D1;
+}
+
+.radio-button {
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.task-overlay-edit {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: absolute;
+    width: calc(525px - 80px);
+    background-color: white;
+    z-index: 2000;
+    border-radius: 30px;
+    padding: 48px 40px 48px 40px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+    height: calc(930px - 96px);
+}
+
+.task-overlay-edit-top {
+    display: flex;
+    cursor: pointer;
+    align-self: flex-end;
+}
+
+.edit-datepicker{
+    top: 44px;
+}
+
+.task-overlay-edit-top img:hover{
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 50% 50%;
+}
+
+.task-overlay-edit-content {
+    display: flex;
+    flex-direction: column;
+    max-width: 443px;
+    height: 697px;
+    gap: 32px;
+}
+
+.scrollbar {
+    overflow-y: scroll;
+    width: 472px;
+    padding-left: 2px;
+}
+
+.input-addtask-edit {
+    width: calc(445px - 46px);
+    height: 24px;
+    padding-block: 0;
+    padding-inline: 0;
+    color: #a8a8a8;
+    font-size: 18px;
+    border: 1px solid #d1d1d1;
+    border-radius: 10px;
+    background-color: white;
+    padding: 11px 21px;
+}
+
+.input-container-edit {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 440px;
+}
+
+.input-container-edit span, .contacts-span{
+    font-size: 20px;
+    color: #2A3647;
+}
+
+.input-container-edit textarea {
+    width: 445px;
+    border: 1px solid lightgray;
+}
+
+.show-selected-contacts-container{
+    position: absolute;
+    top: 80px;
+}
+
+.due-date-icon {
+    top: 42px;
+}
+
+label.radio-button {
+    margin-right: 0px;
+}
+
+.contact-values{
+    z-index: 1000;
+    background-color: white;
+}
+
+.required-info{
+    position: absolute;
+    bottom: -208px;
+}
+
+.button-container{
+    top: 272px;
+    height: min-content;
+}
+
+.task-added{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    top: calc(50% - 37px);
+    left: calc(50% - 163px);
+    width: 326px;
+    height: 74px;
+    background-color: #2A3647;
+    z-index: 3000;
+    color: white;
+    border-radius: 20px;
+}
+
+.task-added span{
+    font-size: 20px;
+}
+
+.edit-check-button{
+    align-self: self-end;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 89px;
+    height: 57px;
+    background-color: #2A3647;
+    border-radius: 10px;
+    gap: 12px;
+    color: white;
+    cursor: pointer;
+    font-size: 21px;
+}
+
+.edit-check-button:hover{
+    background-color: var(--light-blue);
+}
+
+.choosen-contacts-edit{
+    display: flex;
+    align-items: center;
+    padding-top: 8px;
+    overflow-x: scroll;
+}
+
+.choosen-contacts-edit::-webkit-scrollbar-button, .board-card-assignee::-webkit-scrollbar-button{
+    display: none;
+}
+
+.choosen-contacts-edit::-webkit-scrollbar{
+    height: 4px;
+}
+
+.board-card-assignee {
+    display: flex;
+    overflow-x: scroll;
+    padding: 0px 4px
+}
+
+.board-card-assignee::-webkit-scrollbar{
+    height: 2px;
+}
+
+
+#todo, #in-progress, #await-feedback, #done{
+    width: 256px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 16px;
+    height: calc(100vh - 328px);
+}
+
+#searchInfo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden; 
+    min-width: 250px; 
+    margin-left: -125px;
+    background-color: #2a3647e0;
+    color: #fff; 
+    text-align: center;
+    border-radius: 12px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 50%;
+  }
+  
+  #searchInfo.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  }
+  
+  @-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 50%; opacity: 1;}
+  }
+  
+  @keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 50%; opacity: 1;}
+  }
+  
+  @-webkit-keyframes fadeout {
+    from {bottom: 50%; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+  }
+  
+  @keyframes fadeout {
+    from {bottom: 50%; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+  }

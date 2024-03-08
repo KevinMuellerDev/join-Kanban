@@ -1,0 +1,362 @@
+@media(max-width:1500px) {
+  .greetings-main-cont {
+    display: none;
+  }
+
+}
+
+@media(max-width:1023px) {
+
+  .greetings-main-cont {
+    display: none;
+  }
+
+  .main-sum-cont {
+    inset: 70px 0px;
+    width: 100%;
+  }
+
+  .summary-cont {
+    justify-content: center;
+  }
+
+  .join360-cont {
+    margin-left: 16px;
+    justify-content: center;
+  }
+
+  .summary-cont {
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+  
+}
+
+@media(max-width:660px) {
+
+    .greeting-main-cont-responsive {
+        background-color: white;
+        z-index: 1;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 0px;
+    }
+
+    @keyframes set-opacity {
+        from {
+            opacity: 1;
+            display: block;
+        }
+      
+        to {
+
+            opacity: 0;
+            display: none;
+        }
+      }
+
+
+      .greetings-main-cont {
+        display: none;
+      }
+
+      .join360-cont {
+        flex-direction: column;
+        justify-content: unset;
+        align-items: unset;
+      }
+
+      .main-sum-cont {
+        inset: 100px 0px;
+      }
+
+      h1 {
+        order: 1;
+        margin-block-start: 0;
+        margin-block-end: 0;
+        font-size: 47px;
+      }
+
+      p {
+        order: 2;
+        margin-block-start: 0;
+        margin-block-end: 0;
+      }
+
+      .blue-line {
+        order: 3;
+        height: 3px;
+        width: 90px;
+      }
+
+      .task1-cont {
+        width: 186px;
+        height: 110px;
+      }
+
+      .task2-cont {
+        width: 186px;
+        height: 110px;
+      }
+
+      .deadline-cont {
+        width: 396px;
+        height: 110px;
+      }
+
+      .tasks-in-board-cont {
+        width: 116px;
+        height: 116px;
+      }
+
+      .todo-done-cont {
+        width: 396px;
+        height: 110px;
+      }
+
+      .tasks-overview-cont {
+        width: 396px;
+        height: 110px;
+        margin-top: unset;
+      }
+
+      .tasks-main-cont {
+        width: 396px;
+        height: 384px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .tasks-in-board-help-hover-cont {
+        width: 116px;
+        height: 116px;
+      }
+
+      .deadline-help-hover-cont {
+        width: 396px;
+        height: 110px;
+      }
+
+      .tasks-overall-cont {
+        margin-top: 40px;
+      }
+
+      .tasks-main-cont svg {
+        width: 40px;
+      }
+
+      .task-number span {
+        font-size: 47px;
+      }
+      .task-number div {
+        font-size: 14px;
+      }
+  
+      .urgent-count {
+        font-size: 47px;
+      }
+  
+      .urgent {
+        font-size: 14px;
+      }
+  
+      .date {
+        font-size: 19px;
+      }
+  
+      .upcom-deadline {
+        font-size: 14px;
+      }
+  
+      .tasks-amount-board {
+        font-size: 47px;
+      }
+  
+      .tasks-in-board-span {
+        font-size: 14px;
+      }
+
+      .task1-cont:hover {
+        width: 186px;
+        height: 110px;
+      }
+  
+      .task2-cont:hover {
+        width: 186px;
+        height: 110px;
+    }
+  
+    .deadline-cont:hover {
+        width: 396px;
+        height: 110px;
+    }
+  
+    .tasks-in-board-cont:hover {
+      width: 116px;
+      height: 116px;
+  }
+  
+}
+
+@media(max-width:501px) {
+
+  .join360-cont {
+    margin-left: 16px;
+  }
+
+  .main-sum-cont {
+    inset: 100px 0px;
+  }
+}
+
+@media(max-width:401px) {
+
+
+  .tasks-amount-board {
+    font-size: 34px;
+  }
+
+  .tasks-in-board-span {
+    font-size: 12px;
+  }
+
+  .tasks-main-cont {
+    width: 300px;
+  }
+
+  .todo-done-cont {
+    width: 300px;
+  }
+
+  .task1-cont {
+    width: 130px;
+    height: 90px;
+  }
+
+  .task1-cont:hover {
+    width: 130px;
+    height: 90px;
+  }
+
+  .task2-cont {
+    width: 130px;
+    height: 90px;
+  }
+
+  .task2-cont:hover {
+    width: 130px;
+    height: 90px;
+  }
+
+  .deadline-help-hover-cont{
+    width: 300px;
+  }
+  
+  .deadline-cont {
+    width: 300px;
+    height: 110px;
+  }
+
+  .deadline-cont:hover {
+    width: 300px;
+    height: 110px;
+}
+
+  .tasks-overview-cont {
+    width: 300px;
+  }
+
+  .tasks-in-board-help-hover-cont {
+    width: 80px;
+    height: 80px;
+  }
+
+  .tasks-in-board-cont {
+    width: 80px;
+    height: 80px;
+  }
+
+  .tasks-in-board-cont:hover {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media(max-height:670px) {
+
+  .tasks-overall-cont {
+    margin-top: 20px;
+  }
+
+  h1 {
+    font-size: 40px;
+  }
+
+  .tasks-main-cont {
+    width: 350px;
+    height: 330px;
+  }
+
+  .todo-done-cont {
+    width: 350px;
+  }
+
+  .task1-cont {
+    width: 150px;
+    height: 90px;
+  }
+
+  .task1-cont:hover {
+    width: 150px;
+    height: 90px;
+    background-color: white;
+  }
+
+  .task2-cont {
+    width: 150px;
+    height: 90px;
+  }
+
+  .task2-cont:hover {
+    width: 150px;
+    height: 90px;
+    background-color: white;
+  }
+
+  .deadline-help-hover-cont{
+    width: 350px;
+  }
+
+  .deadline-cont {
+    width: 350px;
+    height: 90px;
+  }
+
+  .deadline-cont:hover {
+    width: 350px;
+    height: 90px;
+    background-color: white;
+}
+
+  .tasks-overview-cont {
+    width: 350px;
+  }
+
+  .tasks-in-board-help-hover-cont {
+    width: 80px;
+    height: 80px;
+  }
+
+  .tasks-in-board-cont {
+    width: 80px;
+    height: 80px;
+  }
+
+  .tasks-in-board-cont:hover {
+    width: 80px;
+    height: 80px;
+    background-color: rgb(255, 255, 255);
+  }
+}

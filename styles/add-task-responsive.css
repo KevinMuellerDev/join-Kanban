@@ -1,0 +1,359 @@
+@media only screen and (max-width: 1330px) {
+  .form-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .form-container {
+    display: flex;
+    inset: 336px 328px;
+    flex-direction: column;
+    height: calc(100% - 300px);
+  }
+
+  .submit-btn-mobile {
+    display: flex;
+    gap: 16px;
+  }
+
+  .button-container {
+    position: fixed;
+    top: calc(100% - 110px);
+    background-color: #f6f7f8;
+    height: 88px;
+    justify-content: space-between;
+    width: calc(100% - 380px);
+  }
+
+  .edit-subtask-field input {
+    width: calc(100% - 16px);
+    height: 48px;
+  }
+
+  .clear-btn-2 {
+    display: unset;
+  }
+
+  .submit-btn-mobile {
+    padding-right: 16px;
+  }
+
+  .input-addtask-datepicker {
+    left: calc(100% - 16px);
+    right: 0;
+  }
+
+  .arrow {
+    left: calc(100% - 42px);
+    right: 0;
+  }
+
+  .contact-values {
+    width: 100%;
+    background-color: white;
+  }
+
+  .input-container {
+    width: calc(100% - 22px);
+  }
+
+  .input-addtask,
+  .input-addtask-date-modified {
+    width: calc(100% - 42px);
+  }
+  .input-container-contacts {
+    width: calc(100% - 22px);
+    z-index: 2000;
+  }
+
+  .prio-container {
+    min-width: 268px;
+    width: 100%;
+  }
+
+  label.radio-button {
+    width: 121px;
+    padding: 0px 8px;
+  }
+
+  .prio-container {
+    gap: 16px;
+    justify-content: space-between;
+  }
+
+  .edit-subtask-field li,
+  .add-subtask,
+  .custom-select {
+    width: 100%;
+  }
+
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    inset: 128px 328px;
+    padding: 0px 16px;
+    height: calc(100% - 300px);
+    width: calc(100% - 380px);
+    overflow-y: scroll;
+  }
+
+  .task-headline {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: unset;
+    height: 112px;
+    width: calc(100% - 32px);
+    padding: 0px 16px;
+    margin-bottom: 32px;
+  }
+
+  .add-task-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 1208px;
+  }
+
+  .add-task-container {
+    display: flex;
+    inset: 336px 328px;
+  }
+
+  .addtask-side-left {
+    position: unset;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: auto;
+    gap: 8px;
+    flex: 0;
+    margin-bottom: 8px;
+  }
+
+  .addtask-side-right {
+    position: unset;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: auto;
+    gap: 8px;
+    flex: 0;
+  }
+
+  .choosen-contacts {
+    position: unset;
+  }
+
+  .input-addtask-datepicker {
+    left: calc(100% - 34px);
+    right: 0;
+  }
+
+  .divider,
+  .required-info,
+  .clear-btn {
+    display: none;
+  }
+
+  .required-info-mobile {
+    display: flex;
+    padding-left: 16px;
+  }
+}
+
+@media only screen and (max-width: 1023px) {
+  .form-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .button-container {
+    position: fixed;
+    top: calc(100% - 168px);
+    background-color: #f6f7f8;
+    height: 88px;
+    justify-content: space-between;
+    width: calc(100% - 22px);
+  }
+
+  .edit-subtask-field input {
+    height: 48px;
+  }
+
+  .submit-btn-mobile {
+    padding-right: 16px;
+  }
+
+  .input-addtask-datepicker {
+    left: calc(100% - 16px);
+    right: 0;
+  }
+
+  .arrow {
+    left: calc(100% - 42px);
+    right: 0;
+  }
+
+  .contact-values {
+    width: 100%;
+    background-color: white;
+  }
+
+  .input-container,
+  .edit-subtask-field input {
+    width: calc(100% - 16px);
+  }
+
+  .input-addtask,
+  .input-addtask-date-modified {
+    width: calc(100% - 42px);
+  }
+  .input-container-contacts {
+    width: calc(100% - 22px);
+    z-index: 2000;
+  }
+
+  .prio-container {
+    min-width: 268px;
+    width: 100%;
+  }
+
+  label.radio-button {
+    width: 121px !important;
+    font-size: 16px !important;
+    height: 41px !important;
+    padding: 0px 3px !important;
+  }
+
+  .prio-container {
+    gap: 16px;
+    justify-content: space-between;
+  }
+
+  .edit-subtask-field li,
+  .add-subtask,
+  .custom-select {
+    width: 100%;
+  }
+
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    inset: 128px 0px;
+    padding: 0px 16px;
+    height: calc(100% - 300px);
+    overflow-y: scroll;
+    width: auto;
+  }
+
+  .task-headline {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: unset;
+    height: 112px;
+    width: calc(100% - 32px);
+    padding: 0px 16px;
+    margin-bottom: 32px;
+  }
+
+  .task-headline h1 {
+    font-size: 47px;
+  }
+
+  .add-task-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 1208px;
+  }
+
+  .add-task-container {
+    display: flex;
+    inset: 336px 328px;
+  }
+
+  .addtask-side-left {
+    position: unset;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: auto;
+    gap: 8px;
+    flex: 0;
+    margin-bottom: 8px;
+  }
+
+  .addtask-side-right {
+    position: unset;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: auto;
+    gap: 8px;
+    flex: 0;
+  }
+
+  .choosen-contacts {
+    position: unset;
+  }
+
+  .input-addtask-datepicker {
+    left: calc(100% - 34px);
+    right: 0;
+  }
+
+  .divider,
+  .required-info,
+  .clear-btn,
+  .clear-btn-2 {
+    display: none;
+  }
+
+  .required-info-mobile {
+    display: flex;
+    padding-left: 16px;
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  .form-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .task-added {
+    width: 252px;
+  }
+
+  label.radio-button {
+    padding: 0px 2px;
+  }
+
+  .prio-container {
+    gap: 8px;
+  }
+}
+
+@media only screen and (max-width: 319px) {
+  .form-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .prio-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 0px 8px;
+    min-width: 0;
+  }
+}

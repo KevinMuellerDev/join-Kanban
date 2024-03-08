@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join</title>
+  <link rel="icon" type="image/x-icon" href="./assets/img/join_logo.png">
+  <link rel="stylesheet" href="./styles/font.css" />
+  <link rel="stylesheet" href="./assets/templates/header.style.css" />
+  <link rel="stylesheet" href="./assets/templates/header.style-responsive.css">
+  <link rel="stylesheet" href="./styles/style.css" />
+  <link rel="stylesheet" href="./styles/board.css" />
+  <link rel="stylesheet" href="./styles/add-task.css" />
+  <link rel="stylesheet" href="./styles/add-task-form.css">
+  <link rel="stylesheet" href="./styles/add-task-contacts.css">
+  <link rel="stylesheet" href="./styles/add-task-global-style.css">
+  <link rel="stylesheet" href="./styles/board-add-task.css" />
+  <link rel="stylesheet" href="./styles/board-responsive.css">
+  <script src="./script.js"></script>
+  <script src="./js/board.js"></script>
+  <script src="./js/boardResponsive.js"></script>
+  <script src="./js/boardRender.js"></script>
+  <script src="./js/boardHtmlTemplate.js"></script>
+  <script src="./js/boardAddTask.js"></script>
+  <script src="./js/addTask.js"></script>
+  <script src="./js/addTaskContacts.js"></script>
+  <script src="./js/addTaskCreateTask.js"></script>
+  <script src="./js/addTaskSubtask.js"></script>
+  <script src="./js/addTaskHTML.js"></script> 
+</head>
+
+<body onload="includeHTML();initBoard()">
+  <header id="main-header" w3-include-html="assets/templates/header.html"></header>
+
+  <main>
+    <div class="board-top">
+      <div class="board-top-content">
+        <div class="board-top-cont-left">
+          <h2>Board</h2>
+          <div class="board-top-add" onclick="navigateToAddTask()">
+            <img src="./assets/img/addresponsive.png" alt="add">
+          </div>
+        </div>
+        <div class="board-top-cont-right">
+          <div class="board-search-form">
+            <form class="board-top-form" onkeyup="searchTask();" onsubmit="searchTask(); return false">
+              <input type="text" id="board-search-task" placeholder="Find Task" autocomplete="off" />
+              <div>
+                <img src="./assets/img/search.png" alt="search-button" onclick="searchTask()" />
+              </div>
+            </form>
+            <div id="searchInfo">The task you are looking for doesn't exist</div>
+          </div>
+          <div class="board-add-button" onclick="displayAddTaskOverlay()">
+            <div>
+              <span>Add Task</span>
+            </div>
+            <div>
+              <img src="./assets/img/add.png" alt="add" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="board-main">
+
+
+      <div class="board-card-section">
+        <div class="board-title-content" id="title-todo">
+          <div>
+            <span>To do</span>
+          </div>
+          <div class="add-svg" onclick="displayAddTaskOverlay('todo')">
+            <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="1" y="1.5" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
+              <path d="M12 8.5V16.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+              <path d="M16 12.5754L8 12.5754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </div>
+        </div>
+        <div id="todo" ondragleave="removeGhostCard('ghostcard')" ondrop="moveTo('todo')"
+          ondragover="allowDrop(event);renderGhostCard('todo')">
+          <div class="board-no-task">
+            <span>No tasks To do</span>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="board-card-section">
+        <div class="board-title-content" id="title-inprogress">
+          <div>
+            <span>In Progress</span>
+          </div>
+          <div class="add-svg" onclick="displayAddTaskOverlay('inprogress')">
+            <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="1" y="1.5" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
+              <path d="M12 8.5V16.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+              <path d="M16 12.5754L8 12.5754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </div>
+        </div>
+        <div id="in-progress" class="board-card-section" ondragleave="removeGhostCard('ghostcard')"
+          ondrop="moveTo('in-progress')" ondragover="allowDrop(event);renderGhostCard('in-progress')">
+          <div class="board-no-task">
+            <span>No tasks To do</span>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="board-card-section">
+        <div class="board-title-content" id="title-boardtitle">
+          <div>
+            <span>Await feedback</span>
+          </div>
+          <div class="add-svg" onclick="displayAddTaskOverlay('awaitfeedback')">
+            <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="1" y="1.5" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
+              <path d="M12 8.5V16.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+              <path d="M16 12.5754L8 12.5754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </div>
+        </div>
+        <div id="await-feedback" ondragleave="removeGhostCard('ghostcard')" ondrop="moveTo('await-feedback')"
+          ondragover="allowDrop(event);renderGhostCard('await-feedback')">
+          <div class="board-no-task">
+            <span>No tasks To do</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="board-card-section">
+        <div class="board-title-content" id="title-boardtitle">
+          <div>
+            <span>Done</span>
+          </div>
+        </div>
+        <div id="done" ondragleave="removeGhostCard('ghostcard')" ondrop="moveTo('done')"
+          ondragover="allowDrop(event);renderGhostCard('done')">
+          <div class="board-no-task">
+            <span>No tasks To do</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+
+  <div class="task-overlay d-none" id="overlay">
+    <div class="task-overlay-bg"></div>
+    <div class="task-overlay-content" id="overlay-card"></div>
+  </div>
+  <div class="add-task-overlay d-none" id="overlay-add-task"></div>
+  <div class="task-added d-none" id="taskadded">
+    <span>Task added to board</span>
+    <img src="./assets/img/board_vector.png" alt="board-icon">
+  </div>
+</body>
+
+</html>

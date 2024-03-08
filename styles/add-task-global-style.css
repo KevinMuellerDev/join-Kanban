@@ -1,0 +1,70 @@
+input[type="date"]::-webkit-calendar-picker-indicator {
+  color: rgba(0, 0, 0, 0);
+  opacity: 1;
+  cursor: pointer;
+  background: url(https://join-63.developerakademie.net/assets/img/icons/calenderIcon.png) no-repeat;
+  width: 24px;
+  height: 24px;
+}
+
+input::-webkit-datetime-edit-day-field,
+input::-webkit-datetime-edit-fields-wrapper {
+  display: none;
+}
+
+select {
+  width: 440px;
+  height: 48px;
+  padding-block: 0;
+  padding-inline: 0;
+  color: #a8a8a8;
+  font-size: 18px;
+  border: 1px solid #d1d1d1;
+  border-radius: 10px;
+  background-color: white;
+  padding: 12px 21px 12px 21px;
+}
+
+label.radio-button {
+  align-items: center;
+  display: flex;
+  font-size: 21px;
+  justify-content: center;
+  background-color: white;
+  color: black;
+  cursor: pointer;
+  border-radius: 10px;
+  height: 56px;
+  width: 136px;
+  gap: 8px;
+}
+
+label img {
+  width: 24px;
+  gap: 8px;
+}
+
+input[type="radio"]:checked + label.radio-button {
+  background-color: var(--prio-button-selected);
+  color: white;
+  font-weight: 700;
+  box-shadow: none;
+  transition: 0.1s;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+textarea {
+  border: 1px solid #d1d1d1;
+  color: black;
+  font-family: "Inter", sans-serif;
+  font-size: 18px;
+  resize: none;
+  border-radius: 10px;
+  background-color: white;
+  box-sizing: border-box;
+  padding: 21px 18px;
+  height: 120px;
+}
