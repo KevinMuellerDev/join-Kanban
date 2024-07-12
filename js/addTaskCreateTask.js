@@ -131,7 +131,7 @@ async function addNewTask(task) {
  */
 
 function handleLocation(index) {
-  if (window.location.href == "https://kevin-mueller.developerakademie.net/board.html" && index == undefined) {
+  if (window.location.href == "https://join.kevin-mueller-dev.de/board.html" && index == undefined) {
     subtasks = [];
     closeOverlayAddTask(true);
   }
@@ -139,7 +139,7 @@ function handleLocation(index) {
     subtasks = [];
     closeOverlayAddTask(true);
   }
-  if (window.location.href == "https://kevin-mueller.developerakademie.net/add-task.html") {
+  if (window.location.href == "https://join.kevin-mueller-dev.de/add-task.html") {
     translateTaskAddedElementAndRedirect();
   }
 }
