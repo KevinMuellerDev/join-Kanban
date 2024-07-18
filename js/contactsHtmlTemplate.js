@@ -124,7 +124,7 @@ function contactsCardHTML({ cardName, secondText, functionName, secontFunction, 
                     <form onsubmit="${functionName}; return false" id="contacts-form">
                         <input onkeyup="disabledBtn()" class="edit-card-from-input" type="text" placeholder="Name" id="name" autocomplete="off" required>
                         <input onkeyup="disabledBtn()" class="edit-card-from-input" type="email" placeholder="E-Mail" id="email" autocomplete="off" required>
-                        <input onkeyup="disabledBtn(),checkIfOnlyNumbers('phone')" class="edit-card-from-input" type="tel" placeholder="Phone" id="phone" autocomplete="off" pattern="[+]?[0-9]+" maxlength="11" required>
+                        <input onkeyup="disabledBtn(),checkIfOnlyNumbers('phone')" class="edit-card-from-input" type="tel" placeholder="Phone" id="phone" autocomplete="off" pattern="[+]?[0-9]+" maxlength="13" required>
                         <div class="edit-card-btn-wrapper">
                             <div id="delete-btn">
                                 <button class="edit-card-btn white-btn pointer mobile-btn-font-size" id="delete" onclick="${secontFunction}">${deleteOrClosebtn}</button>
