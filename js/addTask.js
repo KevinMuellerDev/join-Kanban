@@ -64,6 +64,9 @@ async function contacts() {
 function validateForm(index) {
   getCheckedContact();
   addTask(index);
+  if (window.location.href === "https://join.kevin-mueller-dev.de/board.html" || "http://127.0.0.1:5500//board.html") {
+    closeOverlayAddTask();
+  }
 }
 
 /**

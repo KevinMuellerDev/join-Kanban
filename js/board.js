@@ -198,7 +198,7 @@ function searchTask() {
   searchedTask = [];
 
   for (let i = 0; i < allTasks.length; i++) {
-    if (allTasks[i][0].title.toLowerCase().indexOf(searchValue) !== -1) {
+    if (allTasks[i][0].title.toLowerCase().indexOf(searchValue) !== -1 || allTasks[i][0].taskDescription.toLowerCase().indexOf(searchValue) !== -1) {
       searchedTask.push(allTasks[i]);
     }
   }
