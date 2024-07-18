@@ -101,6 +101,7 @@ function showRegistrationAnimation() {
   let blackCont = document.getElementById('feedback-black-container');
   let feedback = document.getElementById('feedback-registration');
   blackCont.style.display = 'flex';
+  feedback.style.display = 'block';
   feedback.style.top = '50%';
   setTimeout(() => {
     window.location.href = './index.html';;

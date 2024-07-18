@@ -13,7 +13,7 @@ body {
   width: 100%;
   margin: 0;
   font-family: "Inter", sans-serif;
-  height: 100vh;
+  height: 100svh;
   background-color: var(--background-color-site);
   position: relative;
   overflow: hidden;
@@ -141,6 +141,7 @@ body {
   height: 74px;
   border-radius: 20px;
   position: absolute;
+  display: none!important;
   top: 150%;
   left: 50%;
   transform: translate(-50%, -50%);
