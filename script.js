@@ -1,6 +1,6 @@
 const STORAGE_TOKEN = "NQLAMAFU5AWLH6ZKGI0ONLR3I0F6P90ZME5CZSP6";
 //const STORAGE_TOKEN = "B0S7VW5J7TMVF1N3C8G1FX6TF8A9FYUYYTJ8W60E";
-const STORAGE_URL = "https://remote-storage.developerakademie.org/item";
+const STORAGE_URL = "http://127.0.0.1:8000";
 let allTasks = [];
 let logedInUser = [];
 let logedIn = false;
@@ -261,9 +261,13 @@ function navigateToIndex() {
 /**
  * render initials of logged user in the user logo
  */
-function renderLogedUser() {
-  let userInitials = document.getElementById("logedUserInitials");
-  userInitials.innerHTML = logedInUser[0].initials;
+function renderLogedUser(user) {
+  setTimeout(() => {
+    let userInitials = document.getElementById("logedUserInitials");
+    userInitials.innerHTML = user.charAt(0).toUpperCase();
+  }, 100);
+  
+  
 }
 
 
@@ -272,13 +276,13 @@ function renderLogedUser() {
  */
 async function logInAsGuest() {
   guestArray = {
-    name: "Guest",
+    username: "Guest",
     email: "guest@guest.org",
-    password: "password",
-    initials: "G",
+    token: "b7bca947a8f1fd286b4d184a47148c8e59769ce5"
   };
-  logedInUser.push(guestArray);
-  await setItem("logedInUser", logedInUser);
+  logedInUser=guestArray;
+  setLocalStorage();
+  window.location.href = "./summary.html";
 }
 
 
@@ -287,7 +291,9 @@ async function logInAsGuest() {
  */
 async function logOut() {
   logedInUser = [];
-  await setItem("logedInUser", logedInUser);
+  localStorage.removeItem("username");
+  localStorage.removeItem("email");
+  localStorage.removeItem("token");
   window.location = "index.html";
 }
 
@@ -326,4 +332,27 @@ function changeLinkDirection() {
     privacyPolicy.href = "privacy-policy-unloged.html";
     legalNotice.href = "legal-notice-unloged.html";
   }, 100);
+}
+
+async function authenticate(username, password) {
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  const payload = { "username": username, "password": password }
+
+  return await fetch(`${STORAGE_URL}/api/auth/login/`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+    headers: myHeaders,
+  });
+}
+
+async function getSummary(token){
+  return await fetch(`${STORAGE_URL}/api/kanban/summary/`,{
+    method:"GET",
+    headers: {
+      Authorization: `Token ${token}`,
+      "Content-Type": "application/json"
+    },
+  }
+  ).then((res)=> res.json())
 }

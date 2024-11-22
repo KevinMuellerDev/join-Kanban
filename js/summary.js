@@ -1,4 +1,5 @@
 let urgentDates = [];
+let summaryData = [];
 
 
 /**
@@ -7,21 +8,27 @@ let urgentDates = [];
  * @author Eugen Ferchow
  */
 async function renderSummeryTasks() {
-    await getAllTasksData()
-    logedInUser = await getItemContacts("logedInUser");
-    if (logedInUser.length == 0) {
+    const isLoggedIn = localStorage.getItem("token");
+    logedInUser=localStorage.getItem("username");    
+    summaryData=await getSummary(isLoggedIn);
+    console.log(summaryData);
+    
+    if (!Boolean(isLoggedIn)) {
         navigateToIndex();
-    }
+    };
+
     tasksInBoard();
     tasksInProgress();
     tasksToDo();
     tasksAwaitingFeedback()
     tasksDone();
     tasksUrgent();
-    renderLogedUser();
+    renderLogedUser(logedInUser);
     userGreetings();
     greetingResponsive();
 }
+
+
 
 
 /**
@@ -29,7 +36,7 @@ async function renderSummeryTasks() {
  */
 function tasksInBoard() {
     let tasksInBoard = document.getElementById('amount_of_tasks_in_board');
-    tasksInBoard.innerHTML = allTasks.length;
+    tasksInBoard.innerHTML = summaryData.total_tasks;
 }
 
 
@@ -38,13 +45,8 @@ function tasksInBoard() {
  */
 function tasksInProgress() {
     let tasksInProgress = document.getElementById('tasks_in_progress');
-    let count = 0;
-    for (let i = 0; i < allTasks.length; i++) {
-        const element = allTasks[i][0];
-        if (element.status.inProgress == true)
-            count++
-        tasksInProgress.innerHTML = count;
-    }
+    tasksInProgress.innerHTML = summaryData.in_progress;
+    
 }
 
 
@@ -53,13 +55,7 @@ function tasksInProgress() {
  */
 function tasksAwaitingFeedback() {
     let tasksAwaitingFeedback = document.getElementById('tasks_awaiting_feedback');
-    let count = 0;
-    for (let i = 0; i < allTasks.length; i++) {
-        const element = allTasks[i][0];
-        if (element.status.awaitFeedback == true)
-            count++
-        tasksAwaitingFeedback.innerHTML = count;
-    }
+    tasksAwaitingFeedback.innerHTML = summaryData.await_feedback;
 }
 
 
@@ -68,13 +64,7 @@ function tasksAwaitingFeedback() {
  */
 function tasksToDo() {
     let tasksToDo = document.getElementById('tasks_number_to_do');
-    let count = 0;
-    for (let i = 0; i < allTasks.length; i++) {
-        const element = allTasks[i][0];
-        if (!element.status.inProgress && !element.status.done && !element.status.awaitFeedback)
-            count++
-        tasksToDo.innerHTML = count;
-    }
+    tasksToDo.innerHTML = summaryData.todo;
 }
 
 
@@ -83,13 +73,7 @@ function tasksToDo() {
  */
 function tasksDone() {
     let tasksDone = document.getElementById('tasks_number_done');
-    let count = 0;
-    for (let i = 0; i < allTasks.length; i++) {
-        const element = allTasks[i][0];
-        if (element.status.done == true)
-            count++
-        tasksDone.innerHTML = count;
-    }
+    tasksDone.innerHTML = summaryData.done
 }
 
 
@@ -100,58 +84,11 @@ function tasksDone() {
 function tasksUrgent() {
     let urgentTasks = document.getElementById('tasks_number_urgent');
     let nextUrgentDate = document.getElementById('next_urgent_task_date');
-    let count = 0;
-    for (let i = 0; i < allTasks.length; i++) {
-        const element = allTasks[i][0];
-        if (element.prio == "urgent") {
-            count++;
-            rightDate = element.date.replace(/[/]/g, "-");
-            urgentDates.push(rightDate);
-            sortDates(urgentDates);
-        }
-        urgentTasks.innerHTML = count;
-    }
-    if (count != 0) {
-        nextUrgentDate.innerHTML = showDateInRightFormat(urgentDates[0]);
-    } else {
-        nextUrgentDate.innerHTML = "No urgent dates !"
-    }
+    urgentTasks.innerHTML = summaryData.urgent
+    nextUrgentDate.innerHTML = summaryData.urgent_date;
 }
 
 
-/**
- * 
- * @param {string} date 
- * @returns {string}
- * brings the tasksUrgent date in right format (month day, year)
- */
-function showDateInRightFormat(date) {
-    let arr = Array.from(date);
-    let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    let rightMonth = arr[3] + arr[4];
-    if (rightMonth[0] == 0) {
-        rightMonth = months[rightMonth[1] - 1];
-    }
-    else {
-        rightMonth = months[rightMonth - 1];
-    }
-    return `${rightMonth} ${arr[0]}${arr[1]}, ${arr[6]}${arr[7]}${arr[8]}${arr[9]}`
-}
-
-
-/**
- * 
- * @param {string} urgentDates 
- * @returns {string}
- * sort the urgent dates and bring them in right order 
- */
-function sortDates(urgentDates) {
-    return urgentDates.sort((a, b) => {
-        const dateA = a.split('-').reverse().join('-');
-        const dateB = b.split('-').reverse().join('-');
-        return new Date(dateA) - new Date(dateB);
-    });
-}
 
 
 /**

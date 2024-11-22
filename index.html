@@ -17,7 +17,7 @@
     <script src="./js/summary.js"></script>
   </head>
 
-  <body onload="initRegisteredContacts(), loadRememberMe()">
+  <body onload="loadRememberMe()">
     <div class="animation-main-cont change-height" id="animation-logo">
       <svg class="animation-img" width="101" height="122" viewBox="0 0 101 122" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path class="change-logo-color" d="M71.6721 0H49.5143V25.4923H71.6721V0Z" fill="white" />
@@ -45,9 +45,9 @@
 
         <div class="form-cont">
           <form onsubmit="logIn()" ; return false>
-            <input autocomplete="off" class="input-field" type="email" name="email" id="email" placeholder="Email" required />
+            <input autocomplete="off" class="input-field" type="username" name="username" id="username" placeholder="Username" required />
             <input autocomplete="off" class="input-field" type="password" name="password" id="password" placeholder="Password" required />
-            <span id="inputRequiredLogIn" class="d-none">* Wrong Email or Password</span>
+            <span id="inputRequiredLogIn" class="d-none">* Wrong Username or Password</span>
             <div class="checkbox-cont">
               <label class="checkboxlabel">
                 <span>Remember me</span>
@@ -58,7 +58,7 @@
 
             <div class="login-buttons-cont">
               <button type="submit" class="text-decoration-none loginbutton">Log in</button>
-              <a href="summary.html" class="text-decoration-none loginguestbutton" onclick="logInAsGuest()">Guest Log in</a>
+              <a class="text-decoration-none loginguestbutton" onclick="logInAsGuest()">Guest Log in</a>
             </div>
           </form>
         </div>

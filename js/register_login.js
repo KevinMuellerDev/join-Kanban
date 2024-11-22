@@ -1,7 +1,4 @@
-logedInUser=[];
-
-localStorage.setItem('rememberedEmail', '');
-localStorage.setItem('rememberedPassword', '');
+logedInUser = [];
 
 
 /**
@@ -22,24 +19,31 @@ async function initRegisteredContacts() {
  */
 async function logIn() {
   event.preventDefault(); // Kein Standardverhalten des Formulars
-  let email = document.getElementById('email').value;
+  let username = document.getElementById('username').value;
   let password = document.getElementById('password').value;
   let loggedIn = false;
-  for (let i = 0; i < userData.length; i++) {
-    const element = userData[i];
-    if (element.email === email && element.password === password) {
-      loggedIn = true;
-      logedInUser.push(element);
-      await setItem("logedInUser", logedInUser);
-      window.location.href = "./summary.html";
-      saveRememberMe();
-      return;
-    }
+
+  const response = await authenticate(username, password);
+
+  if (response.status === 202) {
+    let user = await response.json()
+    loggedIn = true;
+    logedInUser = user;
+    saveRememberMe();
+    setLocalStorage();
+    window.location.href = "./summary.html";
+    return;
   }
   document.getElementById('email').value = '';
   document.getElementById('password').value = '';
 
   passOutlineLogIn();
+}
+
+function setLocalStorage() {
+  localStorage.setItem("username", logedInUser.username)
+  localStorage.setItem("email", logedInUser.email)
+  localStorage.setItem("token", logedInUser.token)
 }
 
 
@@ -49,13 +53,15 @@ async function logIn() {
  */
 function saveRememberMe() {
   let rememberMe = document.getElementById('rememberMe').checked;
-  var email = document.getElementById("email").value;
+  var username = document.getElementById("username").value;
   var password = document.getElementById("password").value;
+  console.log(rememberMe);
+
   if (rememberMe) {
-    localStorage.setItem('rememberedEmail', email);
+    localStorage.setItem('rememberedUsername', username);
     localStorage.setItem('rememberedPassword', password);
   } else {
-    localStorage.removeItem('rememberedEmail');
+    localStorage.removeItem('rememberedUsername');
     localStorage.removeItem('rememberedPassword');
   }
 }
@@ -65,10 +71,10 @@ function saveRememberMe() {
  * load the user password from local Storage and put it in the input field
  */
 function loadRememberMe() {
-  let rememberedEmail = localStorage.getItem('rememberedEmail');
+  let rememberedUsername = localStorage.getItem('rememberedUsername');
   let rememberedPassword = localStorage.getItem('rememberedPassword');
-  if (rememberedEmail && rememberedPassword) {
-    document.getElementById("email").value = rememberedEmail;
+  if (rememberedUsername && rememberedPassword) {
+    document.getElementById("username").value = rememberedUsername;
     document.getElementById("password").value = rememberedPassword;
   }
 }
@@ -113,7 +119,7 @@ function showRegistrationAnimation() {
  * function to highlight if the passwords in signup dont match
  * @author Kevin Mueller
  */
-function	passOutline(){
+function passOutline() {
   let passwordReg = document.getElementById('password-reg');
   let repPasswordReg = document.getElementById('rep-password-reg');
   if (passwordReg.value != repPasswordReg.value) {
@@ -127,7 +133,7 @@ function	passOutline(){
  * function to highlight if the passwords in signup dont match
  * @author Kevin Mueller
  */
-function	passOutlineLogIn(){
+function passOutlineLogIn() {
   let passwordReg = document.getElementById('email');
   let repPasswordReg = document.getElementById('password');
   if (passwordReg.value != repPasswordReg) {
