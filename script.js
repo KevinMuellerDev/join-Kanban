@@ -267,7 +267,7 @@ function renderLogedUser(user) {
     userInitials.innerHTML = user.charAt(0).toUpperCase();
     console.log('done');
     
-  }, 300);
+  }, 100);
   
   
 }
@@ -368,5 +368,26 @@ async function register(payload){
     body: JSON.stringify(payload),
     headers: myHeaders,
   });
+}
 
+async function getContacts(token){
+  return await fetch(`${STORAGE_URL}/api/kanban/contacts/`,{
+    method:"GET",
+    headers: {
+      Authorization: `Token ${token}`,
+      "Content-Type": "application/json"
+    },
+  }
+  ).then((res)=> res.json())
+}
+
+async function newContact(payload,token){
+  return await fetch(`${STORAGE_URL}/api/kanban/contacts/`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+    headers: {
+      Authorization: `Token ${token}`,
+      "Content-Type": "application/json"
+    },
+  }).then((res)=>res.json());
 }

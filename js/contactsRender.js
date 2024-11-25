@@ -8,7 +8,7 @@ function renderContacts() {
     list.innerHTML += contactDataHTML(0);
     list.innerHTML += contactUserCardHtml(0);
     for (let i = 1; i < contacts.length; i++) {
-        if (contacts[i].name.charAt(0) != contacts[i - 1].name.charAt(0)) {
+        if (contacts[i].name.charAt(0).toLowerCase() != contacts[i - 1].name.charAt(0).toLowerCase()) {
             list.innerHTML += contactDataHTML(i);
             list.innerHTML += contactUserCardHtml(i);
         } else {
@@ -109,7 +109,7 @@ function renderEditContact(userId, userIndex) {
     renderCard("edit-card", contactsCardHTML(formConfig));
     let circleColor = document.getElementById("circle-color");
     circleColor.innerHTML += contactsCardCircleHTML(userIndex)
-    document.getElementById("name").value = contacts[userIndex].name + " " + contacts[userIndex].lastname;
+    document.getElementById("name").value = contacts[userIndex].name
     document.getElementById("email").value = contacts[userIndex].email;
     document.getElementById("phone").value = formatPhoneNumber(contacts[userIndex].phone);
 }

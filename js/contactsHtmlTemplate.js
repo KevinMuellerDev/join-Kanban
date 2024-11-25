@@ -23,12 +23,12 @@ function contactDataHTML(index) {
 function contactUserCardHtml(index) {
     return /*html*/ `
         <div class="contact-data pointer" id="contact-data-${index}" onclick="renderSingleContactOverview(${index})">
-            <div class="initials-circle ${contacts[index].circleColor}">
+            <div class="initials-circle" style="background-color:${contacts[index].circle_color}">
                 <span>${contacts[index].initials}</span>
             </div>
             <div class="user-data-container">
                 <div class="user-Data" id="user-Data-${index}">
-                    <span>${contacts[index].name + " " + contacts[index].lastname}</span>
+                    <span>${contacts[index].name}</span>
                     <a href="#">${contacts[index].email}</a>
                 </div>
             </div>
@@ -45,11 +45,11 @@ function contactUserCardHtml(index) {
 function singleContactOverviewHTML(index) {
     return /*html*/ `
         <div class="single-data-headline">
-            <div class="big-circle ${contacts[index].circleColor}" id="big-circle">
+            <div class="big-circle" style="background-color:${contacts[index].circle_color}" id="big-circle">
                 ${contacts[index].initials}
             </div>
             <div class="single-contact-name-card">
-                <span class="single-contacts-name">${contacts[index].name + " " + contacts[index].lastname}</span>
+                <span class="single-contacts-name">${contacts[index].name}</span>
                 <div class="contacts-icon-container dnone" id="contacts-icon-container">
                     <div class="icons-contacts pointer" id="single-contact-edit" onclick="renderEditContact(${contacts[index].id}, ${index})">
                         <svg class="icons-contacts" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -162,7 +162,7 @@ function addContactIconHTML() {
 
 function contactsCardCircleHTML(index) {
     return  /*html*/ `
-        <div class="big-circle card-circle-center ${contacts[index].circleColor}" id="circle-icon">
+        <div class="big-circle card-circle-center" style="background-color:${contacts[index].circle_color}" id="circle-icon">
             <span>${contacts[index].initials}</span>
         </div>
     `

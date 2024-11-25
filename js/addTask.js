@@ -32,8 +32,8 @@ let contactIds = [];
  */
 
 async function init() {
-  logedInUser = await getItemContacts("logedInUser");
-  renderLogedUser();
+  logedInUser = localStorage.getItem("username");
+  renderLogedUser(logedInUser);
   // invertSvgFills("medium") & handleClick("medium") setzen die Prio standardmäßig auf medium. Im HTML muss  der input den Wert checked bekommen
   invertSvgFills("medium");
   handleClick("medium");

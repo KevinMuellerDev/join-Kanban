@@ -6,18 +6,28 @@ let lastActivePerson;
 
 
 async function initContacts() {
-  contacts = await getItemContacts("contacts");
-  id = await getItemContacts("id");
-  logedInUser = await getItemContacts("logedInUser");
-  //setLogedInUserInContactsArray()
+  const isLoggedIn = localStorage.getItem("token");
+  logedInUser = localStorage.getItem("username");
+  contacts = await getContacts(isLoggedIn)
+  console.log(contacts);
+
   if (logedInUser.length == 0) {
     navigateToIndex();
   }
   renderContacts();
-  renderLogedUser()
+  renderLogedUser(logedInUser)
 }
 
-
+// {
+//   "id": 13,
+//   "name": "Niels",
+//   "initials": "N",
+//   "email": "niels@muster.de",
+//   "phone": null,
+//   "circle_color": "#D60F4C",
+//   "assigned": [],
+//   "user": null
+// }
 /**
  *Updates the data of a person, only updates the data whose field is also filled in
  * @param {number} id - is needed to find the person to be updated
@@ -30,16 +40,19 @@ async function editContact(userId) {
   if (nameValue && isValidEmail(emailValue) && phoneValue) {
     let inedxOfContact = contacts.findIndex(contact => contact.id === userId);
     if (inedxOfContact != -1) {
-      let editName = nameValue.split(" ")
-      contacts[inedxOfContact].name = editName[0];
-      contacts[inedxOfContact].lastname = editName.slice(1).join(" ");
+      contacts[inedxOfContact].name = nameValue;
       contacts[inedxOfContact].email = emailValue;
       contacts[inedxOfContact].phone = formatPhoneNumber(phoneValue);
-      contacts[inedxOfContact].initials = editName[0].charAt(0).toUpperCase() + editName.slice(1).join(" ").charAt(0).toUpperCase();
+      contacts[inedxOfContact].initials = nameValue.charAt(0).toUpperCase();
+      const payload = {
+        "name":contacts[inedxOfContact].name,
+        "email":contacts[inedxOfContact].email,
+        "phone":contacts[inedxOfContact].phone,
+        "initials":contacts[inedxOfContact].initials
+      }
       renderContacts()
       renderSingleContactOverview(inedxOfContact)
-      checkIfEditedDataIsLoggInUser(userId, inedxOfContact)
-      setItem("contacts", contacts)
+      patchEditedUser(contacts[inedxOfContact].id,payload)
     }
   } else {
     return
@@ -56,11 +69,9 @@ async function editContact(userId) {
 async function checkIfEditedDataIsLoggInUser(userId, inedOfContact) {
   if (logedInUser[0].id == userId) {
     logedInUser[0].name = contacts[inedOfContact].name;
-    logedInUser[0].lastname = contacts[inedOfContact].lastname;
     logedInUser[0].email = contacts[inedOfContact].email;
     logedInUser[0].initials = contacts[inedOfContact].initials;
     logedInUser[0].phone = contacts[inedOfContact].phone;
-    await setItem("logedInUser", logedInUser)
     updateLogedInUserInUserDataArray()
     renderLogedUser()
   }
@@ -73,12 +84,14 @@ async function checkIfEditedDataIsLoggInUser(userId, inedOfContact) {
 async function deleteContact(id) {
   const disabledClick = document.getElementById("single-contact-delete");
   const index = contacts.findIndex(contact => contact.id === id);
-  if (logedInUser[0].id == contacts[index].id) {
+  console.log(index);
+  
+  if (localStorage.getItem("username") == contacts[index].name) {
     renderSlideInMsg("contact-success", "You can't delete yourself");
     disabledClick.style.pointerEvents = "none";
     return;
   }
-  if (!logedInUser[0].id) {
+  if (localStorage.getItem("username")==="Guest") {
     renderSlideInMsg("contact-success", "Guest can't delete a user");
     disabledClick.style.pointerEvents = "none";
     return;
@@ -89,7 +102,7 @@ async function deleteContact(id) {
     document.getElementById("single-contact-data-container").innerHTML = "";
     lastActivePerson = 0;
     renderContactListAfterDeleteMobile()
-    setItem("contacts", contacts);
+    deleteContactEntry(id);
   }
 
 }
@@ -132,30 +145,24 @@ async function saveNewUserData() {
  * @returns {void} - returns nothing
  */
 async function addNewContactToContactlist() {
-  let name = document.getElementById("name").value.toLowerCase().trim();
-  let helper = name.split(" ");
+  let name = document.getElementById("name").value.trim();
   let email = document.getElementById("email").value.trim();
   let phone = document.getElementById("phone").value.trim();
   if (checkEmailAddress(email, contacts) || !isValidEmail(email)) {
     return;
   }
   if (name && email && phone) {
-    contacts.push({
-      id: id,
-      name: firstCharToUpperCase(helper[0]),
-      lastname: helper.length === 1 ? "" : firstCharToUpperCase(helper[helper.length - 1]),
-      email: email.toLowerCase(),
-      phone: formatPhoneNumber(phone),
-      initials:
-        helper.length === 1 ? helper[0].charAt(0).toUpperCase() : helper[0].charAt(0).toUpperCase() + helper[1].charAt(0).toUpperCase(),
-      circleColor: getRandomColor(),
-    });
+    const payload = {
+      "name": name,
+      "email": email,
+      "phone": phone,
+      "initials": name.charAt(0).toUpperCase()
+    };
+    const response = await newContact(payload ,localStorage.getItem("token"));
+    contacts = await getContacts(localStorage.getItem("token"));
     renderContacts();
     renderCard("edit-card", "");
-    renderAddContactSuccess(id, "Contact succesfully created ");
-    id++;
-    setItem("id", id);
-    setItem("contacts", contacts);
+    renderAddContactSuccess(response.id, "Contact succesfully created ");
   }
 }
 
@@ -164,7 +171,8 @@ async function addNewContactToContactlist() {
 function sortArrayByUserName() {
   sortedUsers = contacts.sort((a, b) => {
     const result = a.name.localeCompare(b.name);
-    return result !== 0 ? result : a.lastname.localeCompare(b.lastname);
+    return result
+    // return result !== 0 ? result : a.lastname.localeCompare(b.lastname);
   });
 }
 
@@ -226,45 +234,6 @@ function setPersonToActive(id) {
 }
 
 
-function getRandomColor() {
-  let number = Math.floor(Math.random() * 15) + 1;
-  switch (number) {
-    case 1:
-      return "user-color-one";
-    case 2:
-      return "user-color-two";
-    case 3:
-      return "user-color-three";
-    case 4:
-      return "user-color-four";
-    case 5:
-      return "user-color-five";
-    case 6:
-      return "user-color-six";
-    case 7:
-      return "user-color-seven";
-    case 8:
-      return "user-color-eight";
-    case 9:
-      return "user-color-nine";
-    case 10:
-      return "user-color-ten";
-    case 11:
-      return "user-color-eleven";
-    case 12:
-      return "user-color-twelve";
-    case 13:
-      return "user-color-thirteen";
-    case 14:
-      return "user-color-fourteen";
-    case 15:
-      return "user-color-fifteen";
-    default:
-      return "user-color-one";
-  }
-}
-
-
 /**
  * Sets the first letter of the name to upper case
  * @param {String} name - User name
@@ -317,6 +286,9 @@ function formatPhoneNumber(phoneNumber) {
   if (match) {
     let countryCode = match[1] === '0' ? '+49' : match[1];
     return countryCode + ' ' + match[2] + ' ' + match[3] + ' ' + match[4] + ' ' + match[5];
+  }
+  if(phoneNumber === null){
+    return "-"
   }
   return phoneNumber;
 }
@@ -500,4 +472,25 @@ async function ifEmailIsValisAddorEditContacts() {
     addNewContactToContactlist();
     closeRenderContactCardSlide()
   }
+}
+
+async function patchEditedUser(userId, payload) {
+  return await fetch(`${STORAGE_URL}/api/kanban/contacts/${userId}/`, {
+    method: "PATCH",
+    body: JSON.stringify(payload),
+    headers: {
+      Authorization: `Token ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json"
+    },
+  });
+}
+
+async function deleteContactEntry(userId){
+  return await fetch(`${STORAGE_URL}/api/kanban/contacts/${userId}/`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Token ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json"
+    },
+  });
 }
