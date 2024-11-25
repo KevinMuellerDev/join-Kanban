@@ -107,11 +107,11 @@ function showRegistrationAnimation() {
   let blackCont = document.getElementById('feedback-black-container');
   let feedback = document.getElementById('feedback-registration');
   blackCont.style.display = 'flex';
-  feedback.style.display = 'block';
+  feedback.setAttribute('style', 'display:flex !important');
   feedback.style.top = '50%';
   setTimeout(() => {
     window.location.href = './index.html';;
-  }, 1000);
+  }, 2000);
 }
 
 
@@ -140,5 +140,26 @@ function passOutlineLogIn() {
     passwordReg.style.border = '2px solid #ff8190';
     repPasswordReg.style.border = '2px solid #ff8190';
     document.getElementById('inputRequiredLogIn').classList.remove('d-none')
+  }
+}
+
+async function getRegistrationData(){
+  const name = document.getElementById("name-reg").value.trim();
+  const email = document.getElementById("email-reg").value.trim();
+  const password = document.getElementById("password-reg").value.trim();
+  const passwordRep = document.getElementById("rep-password-reg").value.trim();
+  const payload = {
+    username: name,
+    email: email,
+    password: password,
+    repeated_password: passwordRep
+  };
+  const response = await register(payload);
+  if (response.status !== 201) {
+    return;
+  }
+  
+  if (window.location.href == 'https://kevin-mueller.developerakademie.net/index.html' || 'http://127.0.0.1:5500/index.html') {
+    showRegistrationAnimation();
   }
 }

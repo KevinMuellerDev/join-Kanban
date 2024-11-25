@@ -358,3 +358,15 @@ async function getSummary(token){
   }
   ).then((res)=> res.json())
 }
+
+async function register(payload){
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+
+  return await fetch(`${STORAGE_URL}/api/auth/registration/`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+    headers: myHeaders,
+  });
+
+}

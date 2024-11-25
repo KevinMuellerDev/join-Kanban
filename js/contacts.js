@@ -117,7 +117,6 @@ async function saveNewUserData() {
     email: email,
     password: password,
     initials: helper.length === 1 ? helper[0].charAt(0).toUpperCase() : helper[0].charAt(0).toUpperCase() + helper[1].charAt(0).toUpperCase(),
-    circleColor: getRandomColor(),
     phone: "No data stored",
   });
   id++;
