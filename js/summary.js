@@ -9,10 +9,10 @@ let summaryData = [];
  */
 async function renderSummeryTasks() {
     const isLoggedIn = localStorage.getItem("token");
-    logedInUser=localStorage.getItem("username");    
-    summaryData=await getSummary(isLoggedIn);
+    logedInUser = localStorage.getItem("username");
+    summaryData = await getSummary(isLoggedIn);
     console.log(summaryData);
-    
+
     if (!Boolean(isLoggedIn)) {
         navigateToIndex();
     };
@@ -27,6 +27,8 @@ async function renderSummeryTasks() {
     userGreetings();
     greetingResponsive();
 }
+
+
 
 
 
@@ -46,7 +48,7 @@ function tasksInBoard() {
 function tasksInProgress() {
     let tasksInProgress = document.getElementById('tasks_in_progress');
     tasksInProgress.innerHTML = summaryData.in_progress;
-    
+
 }
 
 
@@ -98,14 +100,13 @@ function tasksUrgent() {
 function userGreetings() {
     let greetSummaryMain = document.getElementById('greeting-depent-time');
     let name = document.getElementById('logedInName');
-    let lastName = document.getElementById('logedInLastname');
-    if (logedInUser[0].name == "Guest") {
+    if (logedInUser == "Guest") {
         greetSummaryMain.innerHTML = `${GreetingDependTime()}`;
+        name.innerHTML = logedInUser;
     }
     else {
         greetSummaryMain.innerHTML = `${GreetingDependTime()}`;
-        name.innerHTML = `${logedInUser[0].name} `;
-        lastName.innerHTML = `${logedInUser[0].lastname}`;
+        name.innerHTML = logedInUser;
     }
 }
 

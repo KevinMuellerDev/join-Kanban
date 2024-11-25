@@ -265,7 +265,9 @@ function renderLogedUser(user) {
   setTimeout(() => {
     let userInitials = document.getElementById("logedUserInitials");
     userInitials.innerHTML = user.charAt(0).toUpperCase();
-  }, 100);
+    console.log('done');
+    
+  }, 300);
   
   
 }
@@ -278,7 +280,7 @@ async function logInAsGuest() {
   guestArray = {
     username: "Guest",
     email: "guest@guest.org",
-    token: "b7bca947a8f1fd286b4d184a47148c8e59769ce5"
+    token: "3589c2b1e37ebd761c8af73fb5ffc5c8a28d658d"
   };
   logedInUser=guestArray;
   setLocalStorage();
