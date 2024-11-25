@@ -42,7 +42,7 @@ function getPriorityValue(index) {
         prio = prioInputsEdit[i].value;
       }
     }
-  }else{
+  } else {
     for (let i = 0; i < prioInputs.length; i++) {
       if (prioInputs[i].checked) {
         prio = prioInputs[i].value;
@@ -71,19 +71,18 @@ function createTaskObject(id, title, description, date, prio, category, index) {
   return [
     {
       id: id,
+      category: category,
       title: title,
-      contactDataAsArray: finalContactData,
-      contactIds: contactIds,
-      status: currentTaskState,
-      taskDescription: description,
+      description: description,
+      due_date: date,
+      priority: prio,
+      assigned: contactIds,
+      in_progress:false,
+      await_feedback:false,
+      done:false,
       contacts: contactName,
       initials: initials,
-      circleColor: circleColors,
-      createdAt: new Date().getTime(),
-      date: date,
-      prio: prio,
-      category: category,
-      subtask: { subtask: subtasks, taskstate: generateTaskState(index) },
+      subtasks: { task_description: subtasks, task_state: generateTaskState(index) },
     },
   ];
 }

@@ -33,12 +33,13 @@ let contactIds = [];
 
 async function init() {
   logedInUser = localStorage.getItem("username");
+  const token = localStorage.getItem("token");
   renderLogedUser(logedInUser);
   // invertSvgFills("medium") & handleClick("medium") setzen die Prio standardmäßig auf medium. Im HTML muss  der input den Wert checked bekommen
   invertSvgFills("medium");
   handleClick("medium");
-  initContacts();
-  getAllTasksData();
+  initContacts(token);
+  getAllTasksData(token);
   createTodayDateforDatepicker();
 }
 

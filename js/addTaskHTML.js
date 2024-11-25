@@ -116,12 +116,11 @@ function generateContactHTML(contact, index) {
   return `
   <div id="contact_${index}" onclick="getClickedContact(${index},${contact.id})" class="contact-list-name-container pointer">
   <div class="contact-list-name-initials">
-    <div class="initials-circle ${contact.circleColor}">
+    <div class="initials-circle" style="background-color: ${contact.circle_color}">
       <span>${contact.initials}</span>
     </div>
     <div class="contact-list-name-element">
       <span>${contact.name}</span>
-      <span>${contact.lastname}</span>
     </div>
   </div>
   <div id="checkboxIcon_${index}" class="contact-list-checkbox-icon">

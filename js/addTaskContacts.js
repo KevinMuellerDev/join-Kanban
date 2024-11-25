@@ -5,8 +5,8 @@
  * @author Dragan
  */
 
-async function initContacts() {
-  tempContacts = await getItemContacts("contacts");
+async function initContacts(token) {
+  tempContacts = await getContacts(token);
   getAllContacts();
 }
 
@@ -192,7 +192,7 @@ function showChoosenContactsCircle() {
     tempContacts.forEach((contact) => {
       if (checkedContactId === contact.id) {
         container.innerHTML += `
-          <div class="initials-circle ${contact.circleColor}">
+          <div class="initials-circle" style="background-color: ${contact.circle_color}">
           ${contact.initials}
           </div>
           
@@ -218,9 +218,9 @@ function getCheckedContact() {
   checkedContacts.forEach((contactId) => {
     tempContacts.forEach((contact) => {
       if (contactId === contact.id) {
-        contactName.push(contact.name + " " + contact.lastname);
+        contactName.push(contact.name);
         initials.push(contact.initials);
-        circleColors.push(contact.circleColor);
+        circleColors.push(contact.circle_Color);
         contactIds.push(contact.id);
         finalContactData.push({
           id: contact.id,

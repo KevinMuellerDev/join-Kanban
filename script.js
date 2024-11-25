@@ -117,8 +117,10 @@ async function setItem(key, value) {
  * @author Kevin Müller
  */
 
-async function getAllTasksData() {
-  allTasks = await getItemContacts("test_board");
+async function getAllTasksData(token) {
+  allTasks = await getTasks(token);
+  console.log(allTasks);
+  
 }
 
 
@@ -390,4 +392,15 @@ async function newContact(payload,token){
       "Content-Type": "application/json"
     },
   }).then((res)=>res.json());
+}
+
+async function getTasks(token){
+  return await fetch(`${STORAGE_URL}/api/kanban/tasks/`,{
+    method:"GET",
+    headers: {
+      Authorization: `Token ${token}`,
+      "Content-Type": "application/json"
+    },
+  }
+  ).then((res)=> res.json())
 }
