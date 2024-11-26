@@ -8,20 +8,30 @@
  */
 
 async function addTask(index) {
-  let id = allTasks.length;
   let title = document.getElementById("title");
   let taskDescription = document.getElementById("taskDescription");
-  let date = document.getElementById("date");
+  const dateRaw = document.getElementById("date").value;
+
+  
+  let date = transformDate(dateRaw);
   let prio = getPriorityValue(index);
   let category = document.getElementById("category");
-  let task = await createTaskObject(id, title.value, taskDescription.value, date.value, prio, category.value, index);
+  let task = await createTaskObject(title.value, taskDescription.value, date, prio, category.value, index);
+  
   if (index !== undefined) {
     updateExistingTask(index, task);
-  } else {
-    addNewTask(task);
+  } else {    
+    addNewTask(task[0]);
   }
+  
   clearCurrentTask();
-  handleLocation(index);
+  //handleLocation(index);
+}
+
+function transformDate(date){
+  const [day, month, year] = date.split('/');
+  const formattedDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+  return formattedDate;
 }
 
 /**
@@ -67,22 +77,25 @@ function getPriorityValue(index) {
  * @author Christian Förster & Kevin Müller
  */
 
-function createTaskObject(id, title, description, date, prio, category, index) {
+function createTaskObject( title, description, date, prio, category, index) {
+  let arrangeSub=[];
+  subtasks.forEach(element => {
+    arrangeSub.push({task_description: element, task_state: false})
+  });
+
   return [
     {
-      id: id,
       category: category,
       title: title,
       description: description,
-      due_date: date,
+      duedate: date,
       priority: prio,
       assigned: contactIds,
       in_progress:false,
       await_feedback:false,
       done:false,
-      contacts: contactName,
       initials: initials,
-      subtasks: { task_description: subtasks, task_state: generateTaskState(index) },
+      subtasks: arrangeSub,
     },
   ];
 }
@@ -118,8 +131,9 @@ async function updateExistingTask(index, task) {
  */
 
 async function addNewTask(task) {
-  allTasks.push(task);
-  await setItem("test_board", allTasks);
+  console.log(task);
+  
+  await newTask(task,localStorage.getItem("token"))
 }
 
 /**
@@ -138,7 +152,7 @@ function handleLocation(index) {
     subtasks = [];
     closeOverlayAddTask(true);
   }
-  if (window.location.href == "https://join.kevin-mueller-dev.de/add-task.html") {
+  if (window.location.href == "https://join.kevin-mueller-dev.de/add-task.html"|| "127.0.0.1:5500/add-task.html") {
     translateTaskAddedElementAndRedirect();
   }
 }
@@ -175,7 +189,9 @@ function generateTaskState(index) {
   for (let i = 0; i < subtasks.length; i++) {
     const element = false;
     if (index != undefined) {
-      const value = allTasks[index][0].subtask.taskstate[i];
+      console.log(index);
+      
+      const value = allTasks[index].subtask.taskstate[i];
       if (value === true) {
         taskstateArray.push(value);
       } else {

@@ -24,7 +24,7 @@
   <body onload="includeHTML();init()">
     <header id="main-header" w3-include-html="./assets/templates/header.html"></header>
     <div>
-      <form class="add-task-form" id="form" onkeypress="preventFormSubmit(event)" onsubmit=" validateForm();return false">
+      <form class="add-task-form" id="form" onkeypress="preventFormSubmit(event)" onsubmit="validateForm(); return false">
         <div class="form-container">
           <div class="task-headline">
             <h1>Add Task</h1>

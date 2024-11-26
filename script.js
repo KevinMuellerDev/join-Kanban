@@ -404,3 +404,14 @@ async function getTasks(token){
   }
   ).then((res)=> res.json())
 }
+
+async function newTask(payload,token){
+  return await fetch(`${STORAGE_URL}/api/kanban/tasks/`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+    headers: {
+      Authorization: `Token ${token}`,
+      "Content-Type": "application/json"
+    },
+  }).then((res)=>res.json());
+}
