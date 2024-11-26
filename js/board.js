@@ -17,15 +17,16 @@ window.addEventListener("resize", function () {
  * @author Kevin Mueller
  */
 async function initBoard() {
-  logedInUser = await getItemContacts("logedInUser");
+  logedInUser = localStorage.getItem("username");
+  const token = localStorage.getItem("token");
   if (logedInUser.length == 0) {
     navigateToIndex();
   }
-  renderLogedUser();
-  await getAllTasksData();
+  renderLogedUser(logedInUser);
+  await getAllTasksData(token);
   clearCurrentTask();
   renderCheckState(allTasks);
-  initContacts();
+  initContacts(token);
   checkedContacts = [];
   await renderAddTaskOverlay();
   lockout = false;

@@ -13,7 +13,7 @@ function templateCard(task) {
                   ${renderCardAssignee(task)}
               </div>
               <div>
-                  <img src="./assets/img/${task.prio}.png" alt="prio-low">
+                  <img src="./assets/img/${task.priority}.png" alt="prio-low">
               </div>
           </div>
       </div>`;
@@ -55,16 +55,20 @@ function templateCardTopContent(task) {
             <span>${task.title}</span>
         </div>
         <div class="max-lines">
-            <span>${task.taskDescription}</span>
+            <span>${task.description}</span>
         </div>
       </div>`;
 }
 
 function templateCardAssignee(assignee, color) {
-  return `<div class="assignee ${color}" >${assignee}</div>`;
+  console.log(color);
+  
+  return `<div class="assignee" style="background-color:${color}" >${assignee}</div>`;
 }
 
 function templateTaskOverlay(task) {
+  console.log(task);
+  
   return `
       <div class="task-overlay-top">
           <div class="board-card-topic" style="background-color:${checkCategory(task.category)}">
@@ -89,21 +93,21 @@ function templateTaskOverlay(task) {
 function templateOverlayTopContent(task) {
   return `
       <span class="task-overlay-title">${task.title}</span>
-      <span class="task-overlay-text">${task.taskDescription}</span>
+      <span class="task-overlay-text">${task.description}</span>
       <div class="task-overlay-section">
           <span class="task-overlay-text task-overlay-text-fix">Due date:</span>
-          <span class="task-overlay-text">${task.date}</span>
+          <span class="task-overlay-text">${task.duedate}</span>
       </div>
       <div class="task-overlay-section">
           <span class="task-overlay-text task-overlay-text-fix">Priority:</span>
-          <span class="task-overlay-text board-prio-pad">${task.prio} <img src="./assets/img/${task.prio}.png" alt=""></span>
+          <span class="task-overlay-text board-prio-pad">${task.priority} <img src="./assets/img/${task.priority}.png" alt=""></span>
       </div>`;
 }
 
 function templateOverlayAssignee(assignee, name, color) {
   return `
       <div class="task-overlay-assignee">
-          <div class="assignee ${color}">${assignee}</div>
+          <div class="assignee" style="background-color:${color}">${assignee}</div>
           <span>${name}</span>
       </div>`;
 }

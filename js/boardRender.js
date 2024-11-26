@@ -15,15 +15,15 @@ async function renderCheckState(data) {
     await clearBoard();
 
     for (let i = 0; i < data.length; i++) {
-        const task = data[i][0];
+        const task = data[i];
 
-        if (task.status.inProgress == true) {
+        if (task.inProgress == true) {
             tasksInProgress.push(task);
             renderCard(task, "in-progress");
-        } else if (task.status.awaitFeedback == true) {
+        } else if (task.awaitFeedback == true) {
             tasksAwaitFeedback.push(task);
             renderCard(task, "await-feedback");
-        } else if (task.status.done == true) {
+        } else if (task.done == true) {
             tasksDone.push(task);
             renderCard(task, "done");
         } else {
@@ -92,9 +92,11 @@ function renderCard(task, id) {
  */
 function renderCardAssignee(data) {
     let textHTML = "";
-    for (let i = 0; i < data.initials.length; i++) {
-        const assignee = data.initials[i];
-        const color = data.circleColor[i];
+    
+    for (let i = 0; i < data.assigned.length; i++) {
+        const assignee = data.assigned[i].initials;
+        const color = data.assigned[i].circle_color;
+       
         textHTML += templateCardAssignee(assignee, color);
     }
     return textHTML;
@@ -110,10 +112,11 @@ function renderCardAssignee(data) {
  */
 function renderOverlayAssignee(data) {
     let textHTML = "";
-    for (let i = 0; i < data.contacts.length; i++) {
-        const assignee = data.initials[i];
-        const name = data.contacts[i];
-        const color = data.circleColor[i];
+
+    for (let i = 0; i < data.assigned.length; i++) {
+        const assignee = data.assigned[i].initials;
+        const name = data.assigned[i].name;
+        const color = data.assigned[i].circle_color;
         textHTML += templateOverlayAssignee(assignee, name, color);
     }
     return textHTML;
@@ -128,9 +131,11 @@ function renderOverlayAssignee(data) {
  */
 function renderTaskOverlay(index) {
     let overlay = document.getElementById("overlay-card");
-    let taskIndex = allTasks[index][0];
+    let taskIndex = allTasks.findIndex(task => task.id === index);
+    console.log(taskIndex);
+    
     overlay.innerHTML = "";
-    overlay.innerHTML = templateTaskOverlay(taskIndex);
+    overlay.innerHTML = templateTaskOverlay(allTasks[taskIndex]);
     openOverlay();
 }
 
@@ -168,10 +173,11 @@ async function renderEditOverlay(index) {
 function renderSubtask(task) {
     let textHTML = "";
     let imgSource = "";
-
-    for (let i = 0; i < task.subtask.subtask.length; i++) {
-        const subtask = task.subtask.subtask[i];
-        const substate = task.subtask.taskstate[i];
+    console.log(task);
+    
+    for (let i = 0; i < task.subtasks.length; i++) {
+        const subtask = task.subtasks[i].task_description;
+        const substate = task.subtasks[i].task_state;
 
         if (substate == true) {
             imgSource = "./assets/img/checkbuttonchecked.png";
@@ -192,8 +198,10 @@ function renderSubtask(task) {
  * @author Kevin Mueller
  */
 function renderProgressBar(task) {
-    let progressLength = task.subtask.subtask.length;
-    let taskState = task.subtask.taskstate;
+    console.log(task.subtasks);
+    
+    let progressLength = task.subtasks.length;
+    let taskState = task.subtasks;
     let finishedSubtasks = taskState.filter(Boolean).length;
     let width = (100 / progressLength) * finishedSubtasks;
     if (progressLength > 0) {
@@ -212,8 +220,8 @@ function renderProgressBar(task) {
  * @author Kevin Mueller
  */
 function renderProgressAmount(task) {
-    let progressLength = task.subtask.subtask.length;
-    let taskState = task.subtask.taskstate.filter(Boolean).length;
+    let progressLength = task.subtasks.length;
+    let taskState = task.subtasks.filter(Boolean).length;
     if (progressLength !== 0) {
         return `${taskState} / ${progressLength} Subtasks`;
     } else{
@@ -230,5 +238,5 @@ function renderProgressAmount(task) {
  */
 function renderAddTaskOverlay() {
     document.getElementById("overlay-add-task").innerHTML = templateAddTaskBoard();
-    initContacts();
+    initContacts(localStorage.getItem("token"));
 }
