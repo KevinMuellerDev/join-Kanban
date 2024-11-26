@@ -201,7 +201,7 @@ function renderProgressBar(task) {
     console.log(task.subtasks);
     
     let progressLength = task.subtasks.length;
-    let taskState = task.subtasks;
+    let taskState = task.subtasks.map(task=> task.task_state);
     let finishedSubtasks = taskState.filter(Boolean).length;
     let width = (100 / progressLength) * finishedSubtasks;
     if (progressLength > 0) {
@@ -221,9 +221,10 @@ function renderProgressBar(task) {
  */
 function renderProgressAmount(task) {
     let progressLength = task.subtasks.length;
-    let taskState = task.subtasks.filter(Boolean).length;
+    let taskState = task.subtasks.map(task=> task.task_state);
+    let finishedSubtasks = taskState.filter(Boolean).length;
     if (progressLength !== 0) {
-        return `${taskState} / ${progressLength} Subtasks`;
+        return `${finishedSubtasks} / ${progressLength} Subtasks`;
     } else{
         return ''
     }
