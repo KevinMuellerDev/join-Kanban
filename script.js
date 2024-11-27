@@ -415,3 +415,14 @@ async function newTask(payload,token){
     },
   }).then((res)=>res.json());
 }
+
+async function updateTask(payload,token,id){
+  return await fetch(`${STORAGE_URL}/api/kanban/tasks/${id}/`, {
+    method: "PUT",
+    body: JSON.stringify(payload),
+    headers: {
+      Authorization: `Token ${token}`,
+      "Content-Type": "application/json"
+    },
+  }).then((res)=>res.json());
+}

@@ -95,17 +95,23 @@ async function moveTo(id) {
  */
 function checkedSubtask(subtask, id) {
   let subtaskDom = document.getElementById(`sub${subtask}`);
+  let taskArrayIndex = allTasks.findIndex(task => task.id === id);
 
-  if (allTasks[id][0].subtask.taskstate[subtask] == true) {
+  if (allTasks[taskArrayIndex].subtasks[subtask].task_state == true) {
     subtaskDom.src = `./assets/img/checkbuttonempty.png`;
     subtaskDom.alt = "unchecked";
-    allTasks[id][0].subtask.taskstate[subtask] = false;
-  } else if (allTasks[id][0].subtask.taskstate[subtask] == false) {
+    allTasks[taskArrayIndex].subtasks[subtask].task_state = false;
+  } else if (allTasks[taskArrayIndex].subtasks[subtask].task_state == false) {
     subtaskDom.src = `./assets/img/checkbuttonchecked.png`;
     subtaskDom.alt = "checked";
-    allTasks[id][0].subtask.taskstate[subtask] = true;
+    allTasks[taskArrayIndex].subtasks[subtask].task_state = true;
   }
-  setItem("test_board", allTasks);
+
+  let payloadDummy = structuredClone(allTasks[taskArrayIndex])
+  const userIds = payloadDummy.assigned.map(user => user.id)
+  payloadDummy.assigned = userIds
+
+  updateTask(payloadDummy,localStorage.getItem("token"),id)
 }
 
 /**

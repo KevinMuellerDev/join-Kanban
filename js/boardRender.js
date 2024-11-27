@@ -147,17 +147,18 @@ function renderTaskOverlay(index) {
  * @author Kevin Mueller
  */
 async function renderEditOverlay(index) {
+    let taskIndex = allTasks.findIndex(task => task.id === index);
     let overlay = document.getElementById("overlay-card");
-    let taskIndex = allTasks[index][0];
+    let task = allTasks[taskIndex];
     overlay.innerHTML = "";
-    overlay.innerHTML = await templateEditOverlay(taskIndex);
+    overlay.innerHTML = await templateEditOverlay(task);
     checkedContacts = [];
     displayContacts(tempContacts);
-    await checkedContactId(taskIndex.contactIds);
+    await checkedContactId(task.contactIds);
     showChoosenContactsCircle();
-    await invertSvgFillsEdit(taskIndex.prio);
-    fillRadio(taskIndex.prio);
-    getSubtasks(taskIndex.subtask.subtask);
+    await invertSvgFillsEdit(task.prio);
+    fillRadio(task.prio);
+    getSubtasks(task.subtask.subtask);
     showSubtasks();
     createTodayDateforDatepicker()
 }
