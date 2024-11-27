@@ -373,7 +373,7 @@ function templateEditOverlayTitleDescription(task) {
       </div>
       <div class="input-container-edit">
         <span>Description</span>
-        <textarea required name="Description" id="taskDescription" cols="30" rows="10">${task.taskDescription}</textarea>
+        <textarea required name="Description" id="taskDescription" cols="30" rows="10">${task.description}</textarea>
       </div> `;
 }
 
@@ -381,7 +381,7 @@ function templateEditOverlayDueDate(task) {
   return `
       <div class="input-container-edit">
         <span>Due Date</span>
-        <input onclick="checkDateInputField()" onkeyup="checkDateInputField()" value="${task.date}" class="input-addtask-date-modified" id="date" type="text" maxlength="10" placeholder="dd/mm/yyyy" pattern="\d{2}/\d{2}/\d{4}" required />
+        <input onclick="checkDateInputField()" onkeyup="checkDateInputField()" value="${task.duedate}" class="input-addtask-date-modified" id="date" type="text" maxlength="10" placeholder="dd/mm/yyyy" pattern="\d{2}/\d{2}/\d{4}" required />
         <input type="date" id="dateNormal" class="input-addtask-datepicker edit-datepicker" pattern="\d{2}/\d{2}/\d{4}" onchange="formatDateInput();updateDateFieldValue()" />
         <div class="due-date-icon">
           <svg class="d-none" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">

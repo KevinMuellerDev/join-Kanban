@@ -10,6 +10,7 @@
 async function addTask(index) {
   let title = document.getElementById("title");
   let taskDescription = document.getElementById("taskDescription");
+  
   const dateRaw = document.getElementById("date").value;
 
   
@@ -17,9 +18,10 @@ async function addTask(index) {
   let prio = getPriorityValue(index);
   let category = document.getElementById("category");
   let task = await createTaskObject(title.value, taskDescription.value, date, prio, category.value, index);
+  console.log(index);
   
   if (index !== undefined) {
-    updateExistingTask(index, task);
+    updateExistingTask(index, task[0]);
   } else {    
     addNewTask(task[0]);
   }
@@ -29,6 +31,10 @@ async function addTask(index) {
 }
 
 function transformDate(date){
+  const datePattern = /^\d{2}\/\d{2}\/\d{4}$/;
+  if (!datePattern.test(date)) {
+    return date
+  } 
   const [day, month, year] = date.split('/');
   const formattedDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
   return formattedDate;
@@ -59,7 +65,8 @@ function getPriorityValue(index) {
       }
     }
   }
-
+  console.log(prio);
+  
   return prio;
 }
 
@@ -82,7 +89,8 @@ function createTaskObject( title, description, date, prio, category, index) {
   subtasks.forEach(element => {
     arrangeSub.push({task_description: element, task_state: false})
   });
-
+  console.log(contactIds);
+  
   return [
     {
       category: category,
@@ -111,15 +119,22 @@ function createTaskObject( title, description, date, prio, category, index) {
  */
 
 async function updateExistingTask(index, task) {
-  let categoryPlaceholder = allTasks[index][0].category;
-  let idPlaceholder = allTasks[index][0].id;
-  let statusPlaceholder = allTasks[index][0].status;
+  console.log("ICH BIN DAAAA");
+  debugger
+  
+  let categoryPlaceholder = allTasks[index].category;
+  let idPlaceholder = allTasks[index].id;
+  let statusPlaceholder = allTasks[index].status;
   allTasks[index] = task;
-  allTasks[index][0].id = idPlaceholder;
-  allTasks[index][0].status = statusPlaceholder;
-  allTasks[index][0].category = categoryPlaceholder;
-  await setItem("test_board", allTasks);
-  initBoard();
+  console.log(allTasks[index]);
+  allTasks[index].assigned = finalContactData
+  allTasks[index].id = idPlaceholder;
+  allTasks[index].priority = statusPlaceholder;
+  allTasks[index].category = categoryPlaceholder;
+  console.log(allTasks[index]);
+  
+  //await setItem("test_board", allTasks);
+  //initBoard();
 }
 
 /**

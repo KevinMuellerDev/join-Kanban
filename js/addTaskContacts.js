@@ -225,9 +225,8 @@ function getCheckedContact() {
         finalContactData.push({
           id: contact.id,
           name: contact.name,
-          lastname: contact.lastname,
           initials: contact.initials,
-          circleColor: contact.circleColor,
+          circle_color: contact.circle_color,
         });
       }
     });

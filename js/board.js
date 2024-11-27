@@ -237,6 +237,8 @@ function displaySearchInfo() {
  */
 function invertSvgFillsEdit(value) {
   let priorityIcon = value;
+  console.log(priorityIcon);
+  
   let urgentIcon = document.getElementById("urgent-icon-edit");
   let mediumIcon = document.getElementById("medium-icon-edit");
   let lowIcon = document.getElementById("low-icon-edit");
@@ -263,7 +265,7 @@ function getSubtasks(task) {
   subtasks = [];
   for (let i = 0; i < task.length; i++) {
     const subtask = task[i];
-    subtasks.push(subtask);
+    subtasks.push(subtask.task_description);
   }
 }
 
@@ -300,7 +302,7 @@ function fillRadio(prio) {
  */
 function checkedContactId(contacts) {
   for (let i = 0; i < contacts.length; i++) {
-    const contactId = contacts[i];
+    const contactId = contacts[i].id;
     getClickedContact(getContactIndex(contactId), contactId);
   }
 }
@@ -328,7 +330,10 @@ function getContactIndex(id) {
  * @author Kevin Mueller
  */
 async function editTask(index) {
-  await validateForm(index);
+  let dummyTasks = structuredClone(allTasks)
+  const indexArr = dummyTasks.findIndex(task=> task.id === index)
+  console.log(indexArr);
+  await validateForm(indexArr);
   renderTaskOverlay(index);
 }
 

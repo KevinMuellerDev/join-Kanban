@@ -154,11 +154,11 @@ async function renderEditOverlay(index) {
     overlay.innerHTML = await templateEditOverlay(task);
     checkedContacts = [];
     displayContacts(tempContacts);
-    await checkedContactId(task.contactIds);
+    await checkedContactId(task.assigned);
     showChoosenContactsCircle();
-    await invertSvgFillsEdit(task.prio);
-    fillRadio(task.prio);
-    getSubtasks(task.subtask.subtask);
+    await invertSvgFillsEdit(task.priority);
+    fillRadio(task.priority);
+    getSubtasks(task.subtasks);
     showSubtasks();
     createTodayDateforDatepicker()
 }
