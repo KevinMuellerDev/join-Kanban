@@ -10,31 +10,28 @@
 async function addTask(index) {
   let title = document.getElementById("title");
   let taskDescription = document.getElementById("taskDescription");
-  
   const dateRaw = document.getElementById("date").value;
-
-  
   let date = transformDate(dateRaw);
   let prio = getPriorityValue(index);
   let category = document.getElementById("category");
+
   let task = await createTaskObject(title.value, taskDescription.value, date, prio, category.value, index);
-  console.log(index);
-  
+
   if (index !== undefined) {
     updateExistingTask(index, task[0]);
-  } else {    
+  } else {
     addNewTask(task[0]);
   }
-  
+
   clearCurrentTask();
   //handleLocation(index);
 }
 
-function transformDate(date){
+function transformDate(date) {
   const datePattern = /^\d{2}\/\d{2}\/\d{4}$/;
   if (!datePattern.test(date)) {
     return date
-  } 
+  }
   const [day, month, year] = date.split('/');
   const formattedDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
   return formattedDate;
@@ -66,7 +63,7 @@ function getPriorityValue(index) {
     }
   }
   console.log(prio);
-  
+
   return prio;
 }
 
@@ -84,13 +81,13 @@ function getPriorityValue(index) {
  * @author Christian Förster & Kevin Müller
  */
 
-function createTaskObject( title, description, date, prio, category, index) {
-  let arrangeSub=[];
+function createTaskObject(title, description, date, prio, category, index) {
+  let arrangeSub = [];
   subtasks.forEach(element => {
-    arrangeSub.push({task_description: element, task_state: false})
+    arrangeSub.push({ task_description: element, task_state: false })
   });
-  console.log(contactIds);
-  
+  console.log(prio);
+
   return [
     {
       category: category,
@@ -99,9 +96,9 @@ function createTaskObject( title, description, date, prio, category, index) {
       duedate: date,
       priority: prio,
       assigned: contactIds,
-      in_progress:false,
-      await_feedback:false,
-      done:false,
+      in_progress: false,
+      await_feedback: false,
+      done: false,
       initials: initials,
       subtasks: arrangeSub,
     },
@@ -119,26 +116,30 @@ function createTaskObject( title, description, date, prio, category, index) {
  */
 
 async function updateExistingTask(index, task) {
-  console.log("ICH BIN DAAAA");
-  debugger
-  let assigneeIds = structuredClone(finalContactData).map(task=> task.id)
-  console.log(assigneeIds);
-  
+  let assigneeIds = structuredClone(finalContactData).map(task => task.id)
+
   let categoryPlaceholder = allTasks[index].category;
   let idPlaceholder = allTasks[index].id;
-  let statusPlaceholder = allTasks[index].priority;
+  let statusPlaceholder = getPriorityValue(index);
   allTasks[index] = task;
-  console.log(allTasks[index]);
   allTasks[index].assigned = assigneeIds
   allTasks[index].id = idPlaceholder;
   allTasks[index].priority = statusPlaceholder;
   allTasks[index].category = categoryPlaceholder;
   console.log(allTasks[index]);
-  
 
-  await updateTask(allTasks[index],localStorage.getItem("token"),allTasks[index].id)
+  debugger
+  await updateTask(structuredClone(allTasks[index]), localStorage.getItem("token"), allTasks[index].id,index)
   //await setItem("test_board", allTasks);
-  initBoard();
+  allTasks[index].assigned = finalContactData
+  console.log(	);
+  
+  console.log(allTasks[index]);
+
+  setTimeout(() => {
+    initBoard();
+  }, 300);
+
 }
 
 /**
@@ -150,9 +151,7 @@ async function updateExistingTask(index, task) {
  */
 
 async function addNewTask(task) {
-  console.log(task);
-  
-  await newTask(task,localStorage.getItem("token"))
+  await newTask(task, localStorage.getItem("token"))
 }
 
 /**
@@ -171,7 +170,7 @@ function handleLocation(index) {
     subtasks = [];
     closeOverlayAddTask(true);
   }
-  if (window.location.href == "https://join.kevin-mueller-dev.de/add-task.html"|| "127.0.0.1:5500/add-task.html") {
+  if (window.location.href == "https://join.kevin-mueller-dev.de/add-task.html" || "127.0.0.1:5500/add-task.html") {
     translateTaskAddedElementAndRedirect();
   }
 }
@@ -209,7 +208,7 @@ function generateTaskState(index) {
     const element = false;
     if (index != undefined) {
       console.log(index);
-      
+
       const value = allTasks[index].subtask.taskstate[i];
       if (value === true) {
         taskstateArray.push(value);

@@ -118,9 +118,7 @@ async function setItem(key, value) {
  */
 
 async function getAllTasksData(token) {
-  allTasks = await getTasks(token);
-  console.log(allTasks);
-  
+  allTasks = await getTasks(token);  
 }
 
 
@@ -416,7 +414,8 @@ async function newTask(payload,token){
   }).then((res)=>res.json());
 }
 
-async function updateTask(payload,token,id){
+async function updateTask(payload,token,id,index){
+  if (index){allTasks[index].assigned = finalContactData}
   return await fetch(`${STORAGE_URL}/api/kanban/tasks/${id}/`, {
     method: "PUT",
     body: JSON.stringify(payload),

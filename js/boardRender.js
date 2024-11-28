@@ -112,7 +112,6 @@ function renderCardAssignee(data) {
  */
 function renderOverlayAssignee(data) {
     let textHTML = "";
-
     for (let i = 0; i < data.assigned.length; i++) {
         const assignee = data.assigned[i].initials;
         const name = data.assigned[i].name;

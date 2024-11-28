@@ -332,7 +332,6 @@ function getContactIndex(id) {
 async function editTask(index) {
   let dummyTasks = structuredClone(allTasks)
   const indexArr = dummyTasks.findIndex(task=> task.id === index)
-  console.log(indexArr);
   await validateForm(indexArr);
   renderTaskOverlay(index);
 }
