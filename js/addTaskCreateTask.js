@@ -121,20 +121,24 @@ function createTaskObject( title, description, date, prio, category, index) {
 async function updateExistingTask(index, task) {
   console.log("ICH BIN DAAAA");
   debugger
+  let assigneeIds = structuredClone(finalContactData).map(task=> task.id)
+  console.log(assigneeIds);
   
   let categoryPlaceholder = allTasks[index].category;
   let idPlaceholder = allTasks[index].id;
-  let statusPlaceholder = allTasks[index].status;
+  let statusPlaceholder = allTasks[index].priority;
   allTasks[index] = task;
   console.log(allTasks[index]);
-  allTasks[index].assigned = finalContactData
+  allTasks[index].assigned = assigneeIds
   allTasks[index].id = idPlaceholder;
   allTasks[index].priority = statusPlaceholder;
   allTasks[index].category = categoryPlaceholder;
   console.log(allTasks[index]);
   
+
+  await updateTask(allTasks[index],localStorage.getItem("token"),allTasks[index].id)
   //await setItem("test_board", allTasks);
-  //initBoard();
+  initBoard();
 }
 
 /**
