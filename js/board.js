@@ -19,7 +19,7 @@ window.addEventListener("resize", function () {
 async function initBoard() {
   logedInUser = localStorage.getItem("username");
   const token = localStorage.getItem("token");
-  if (logedInUser.length == 0) {
+  if (logedInUser == null) {
     navigateToIndex();
   }
   renderLogedUser(logedInUser);
@@ -50,7 +50,10 @@ function allowDrop(ev) {
  * @author Kevin Mueller
  */
 function startDragging(id) {
-  currentDraggedElement = id;
+  draggedTask = allTasks.findIndex(task => task.id === id)
+  currentDraggedElement = draggedTask;
+  console.log(draggedTask);
+  
 }
 
 /**
@@ -60,27 +63,34 @@ function startDragging(id) {
  * @author Kevin Mueller
  */
 async function moveTo(id) {
-  allTasks[currentDraggedElement][0].status.inProgress = false;
-  allTasks[currentDraggedElement][0].status.awaitFeedback = false;
-  allTasks[currentDraggedElement][0].status.done = false;
+  console.log(allTasks[currentDraggedElement]);
+  
+  allTasks[currentDraggedElement].in_progress = false;
+  allTasks[currentDraggedElement].await_feedback = false;
+  allTasks[currentDraggedElement].done = false;
+  let assigneeIds = structuredClone(allTasks[currentDraggedElement].assigned).map(task => task.id)
+  console.log(allTasks[currentDraggedElement].assigned);
+  allTasks[currentDraggedElement].assigned = assigneeIds
+  console.log(allTasks[currentDraggedElement].assigned);
+  
 
   if (id == "in-progress") {
-    allTasks[currentDraggedElement][0].status.inProgress = true;
-    await setItem("test_board", allTasks);
+    allTasks[currentDraggedElement].in_progress = true;
+    await updateTask(allTasks[currentDraggedElement],localStorage.getItem("token"),allTasks[currentDraggedElement].id)
     await initBoard();
     addOverflow();
   } else if (id == "await-feedback") {
-    allTasks[currentDraggedElement][0].status.awaitFeedback = true;
-    await setItem("test_board", allTasks);
+    allTasks[currentDraggedElement].await_feedback = true;
+    await updateTask(allTasks[currentDraggedElement],localStorage.getItem("token"),allTasks[currentDraggedElement].id)
     await initBoard();
     addOverflow();
   } else if (id == "done") {
-    allTasks[currentDraggedElement][0].status.done = true;
-    await setItem("test_board", allTasks);
+    allTasks[currentDraggedElement].done = true;
+    await updateTask(allTasks[currentDraggedElement],localStorage.getItem("token"),allTasks[currentDraggedElement].id)
     await initBoard();
     addOverflow();
   } else if (id == "todo") {
-    await setItem("test_board", allTasks);
+    await updateTask(allTasks[currentDraggedElement],localStorage.getItem("token"),allTasks[currentDraggedElement].id)
     await initBoard();
     addOverflow();
   }
@@ -187,11 +197,13 @@ function removeGhostCard(id) {
  * @author Kevin Mueller
  */
 async function deleteTask(index) {
-  await allTasks.splice(index, 1);
-  for (let i = 0; i < allTasks.length; i++) {
-    allTasks[i][0].id = i;
-  }
-  await setItem("test_board", allTasks);
+  await fetch(`${STORAGE_URL}/api/kanban/tasks/${index}/`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Token ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json"
+      },
+    })
   closeOverlay();
 }
 
@@ -205,7 +217,7 @@ function searchTask() {
   searchedTask = [];
 
   for (let i = 0; i < allTasks.length; i++) {
-    if (allTasks[i][0].title.toLowerCase().indexOf(searchValue) !== -1 || allTasks[i][0].taskDescription.toLowerCase().indexOf(searchValue) !== -1) {
+    if (allTasks[i].title.toLowerCase().indexOf(searchValue) !== -1 || allTasks[i].description.toLowerCase().indexOf(searchValue) !== -1) {
       searchedTask.push(allTasks[i]);
     }
   }

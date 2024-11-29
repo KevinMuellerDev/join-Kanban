@@ -17,10 +17,10 @@ async function renderCheckState(data) {
     for (let i = 0; i < data.length; i++) {
         const task = data[i];
 
-        if (task.inProgress == true) {
+        if (task.in_progress == true) {
             tasksInProgress.push(task);
             renderCard(task, "in-progress");
-        } else if (task.awaitFeedback == true) {
+        } else if (task.await_feedback == true) {
             tasksAwaitFeedback.push(task);
             renderCard(task, "await-feedback");
         } else if (task.done == true) {
@@ -79,6 +79,8 @@ function checkIfTasksAvailable() {
  * @author Kevin Mueller
  */
 function renderCard(task, id) {
+    console.log(id);
+    
     boardSection = document.getElementById(id);
     boardSection.innerHTML += templateCard(task);
 }

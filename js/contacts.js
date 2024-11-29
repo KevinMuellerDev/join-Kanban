@@ -11,7 +11,7 @@ async function initContacts() {
   contacts = await getContacts(isLoggedIn)
   console.log(contacts);
 
-  if (logedInUser.length == 0) {
+  if (logedInUser === null) {
     navigateToIndex();
   }
   renderContacts();

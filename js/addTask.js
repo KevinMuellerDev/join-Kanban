@@ -33,6 +33,9 @@ let contactIds = [];
 
 async function init() {
   logedInUser = localStorage.getItem("username");
+  if (logedInUser === null) {
+    navigateToIndex();
+  }
   const token = localStorage.getItem("token");
   renderLogedUser(logedInUser);
   // invertSvgFills("medium") & handleClick("medium") setzen die Prio standardmäßig auf medium. Im HTML muss  der input den Wert checked bekommen
@@ -55,8 +58,8 @@ async function init() {
  */
 
 async function contacts() {
-  logedInUser = await getItemContacts("logedInUser");
-  if (logedInUser.length == 0) {
+  logedInUser = localStorage.getItem("username");
+  if (logedInUser === null) {
     navigateToIndex();
   }
   renderLogedUser();

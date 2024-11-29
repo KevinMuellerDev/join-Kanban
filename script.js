@@ -263,6 +263,8 @@ function navigateToIndex() {
  */
 function renderLogedUser(user) {
   setTimeout(() => {
+    console.log(user);
+    
     let userInitials = document.getElementById("logedUserInitials");
     userInitials.innerHTML = user.charAt(0).toUpperCase();
     console.log('done');

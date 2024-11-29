@@ -4,12 +4,14 @@
  * @author Kevin Mueller
  */
 async function initUnregistered(){
-    logedInUser = await getItemContacts("logedInUser");
+    logedInUser = localStorage.getItem("username");
+    console.log(logedInUser);
     
-    if (logedInUser.length == 0) {
+    
+    if (logedInUser === null) {
         addCss('../styles/unregistered.css');
     }else{
-        renderLogedUser();
+        renderLogedUser(logedInUser);
     }
 }
 

@@ -24,7 +24,7 @@ async function addTask(index) {
   }
 
   clearCurrentTask();
-  //handleLocation(index);
+  handleLocation(index);
 }
 
 function transformDate(date) {
@@ -83,10 +83,17 @@ function getPriorityValue(index) {
 
 function createTaskObject(title, description, date, prio, category, index) {
   let arrangeSub = [];
-  subtasks.forEach(element => {
-    arrangeSub.push({ task_description: element, task_state: false })
+  subtasks.forEach((element, indexSub) => {
+    if (index === undefined) {
+      arrangeSub.push({ task_description: element, task_state: false })
+    } else {
+      if (allTasks[index].subtasks[indexSub]) {
+        arrangeSub.push({ task_description: element, task_state: allTasks[index].subtasks[indexSub].task_state })
+      }else{
+        arrangeSub.push({ task_description: element, task_state: false })
+      }
+    }
   });
-  console.log(prio);
 
   return [
     {
@@ -128,13 +135,9 @@ async function updateExistingTask(index, task) {
   allTasks[index].category = categoryPlaceholder;
   console.log(allTasks[index]);
 
-  debugger
-  await updateTask(structuredClone(allTasks[index]), localStorage.getItem("token"), allTasks[index].id,index)
+  await updateTask(structuredClone(allTasks[index]), localStorage.getItem("token"), allTasks[index].id, index)
   //await setItem("test_board", allTasks);
   allTasks[index].assigned = finalContactData
-  console.log(	);
-  
-  console.log(allTasks[index]);
 
   setTimeout(() => {
     initBoard();
@@ -162,15 +165,19 @@ async function addNewTask(task) {
  */
 
 function handleLocation(index) {
+  console.log(window.location.href);
+  debugger
+  
   if (window.location.href == "https://join.kevin-mueller-dev.de/board.html" && index == undefined) {
     subtasks = [];
     closeOverlayAddTask(true);
   }
-  if (window.location.href == "127.0.0.1:5500/board.html" && index == undefined) {
+  if (window.location.href == "http://127.0.0.1:5500/board.html") {
     subtasks = [];
     closeOverlayAddTask(true);
+    return
   }
-  if (window.location.href == "https://join.kevin-mueller-dev.de/add-task.html" || "127.0.0.1:5500/add-task.html") {
+  if (window.location.href == "https://join.kevin-mueller-dev.de/add-task.html" || "http://127.0.0.1:5500/add-task.html") {
     translateTaskAddedElementAndRedirect();
   }
 }
