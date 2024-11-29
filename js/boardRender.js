@@ -79,8 +79,6 @@ function checkIfTasksAvailable() {
  * @author Kevin Mueller
  */
 function renderCard(task, id) {
-    console.log(id);
-    
     boardSection = document.getElementById(id);
     boardSection.innerHTML += templateCard(task);
 }
@@ -133,8 +131,6 @@ function renderOverlayAssignee(data) {
 function renderTaskOverlay(index) {
     let overlay = document.getElementById("overlay-card");
     let taskIndex = allTasks.findIndex(task => task.id === index);
-    console.log(taskIndex);
-    
     overlay.innerHTML = "";
     overlay.innerHTML = templateTaskOverlay(allTasks[taskIndex]);
     openOverlay();
@@ -175,7 +171,6 @@ async function renderEditOverlay(index) {
 function renderSubtask(task) {
     let textHTML = "";
     let imgSource = "";
-    console.log(task);
     
     for (let i = 0; i < task.subtasks.length; i++) {
         const subtask = task.subtasks[i].task_description;
@@ -200,8 +195,6 @@ function renderSubtask(task) {
  * @author Kevin Mueller
  */
 function renderProgressBar(task) {
-    console.log(task.subtasks);
-    
     let progressLength = task.subtasks.length;
     let taskState = task.subtasks.map(task=> task.task_state);
     let finishedSubtasks = taskState.filter(Boolean).length;

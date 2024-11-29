@@ -11,7 +11,6 @@ async function renderSummeryTasks() {
     const isLoggedIn = localStorage.getItem("token");
     logedInUser = localStorage.getItem("username");
     summaryData = await getSummary(isLoggedIn);
-    console.log(summaryData);
 
     if (!Boolean(isLoggedIn)) {
         navigateToIndex();

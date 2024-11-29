@@ -9,7 +9,6 @@ async function initContacts() {
   const isLoggedIn = localStorage.getItem("token");
   logedInUser = localStorage.getItem("username");
   contacts = await getContacts(isLoggedIn)
-  console.log(contacts);
 
   if (logedInUser === null) {
     navigateToIndex();
@@ -84,7 +83,6 @@ async function checkIfEditedDataIsLoggInUser(userId, inedOfContact) {
 async function deleteContact(id) {
   const disabledClick = document.getElementById("single-contact-delete");
   const index = contacts.findIndex(contact => contact.id === id);
-  console.log(index);
   
   if (localStorage.getItem("username") == contacts[index].name) {
     renderSlideInMsg("contact-success", "You can't delete yourself");

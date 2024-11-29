@@ -262,13 +262,9 @@ function navigateToIndex() {
  * render initials of logged user in the user logo
  */
 function renderLogedUser(user) {
-  setTimeout(() => {
-    console.log(user);
-    
+  setTimeout(() => {   
     let userInitials = document.getElementById("logedUserInitials");
     userInitials.innerHTML = user.charAt(0).toUpperCase();
-    console.log('done');
-    
   }, 100);
   
   

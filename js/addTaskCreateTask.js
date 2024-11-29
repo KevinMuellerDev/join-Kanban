@@ -62,8 +62,6 @@ function getPriorityValue(index) {
       }
     }
   }
-  console.log(prio);
-
   return prio;
 }
 
@@ -88,8 +86,8 @@ function createTaskObject(title, description, date, prio, category, index) {
       arrangeSub.push({ task_description: element, task_state: false })
     } else {
       if (allTasks[index].subtasks[indexSub]) {
-        arrangeSub.push({ task_description: element, task_state: allTasks[index].subtasks[indexSub].task_state })
-      }else{
+        arrangeSub.push({ id: allTasks[index].subtasks[indexSub].id, task_description: element, task_state: allTasks[index].subtasks[indexSub].task_state })
+      } else {
         arrangeSub.push({ task_description: element, task_state: false })
       }
     }
@@ -124,7 +122,6 @@ function createTaskObject(title, description, date, prio, category, index) {
 
 async function updateExistingTask(index, task) {
   let assigneeIds = structuredClone(finalContactData).map(task => task.id)
-
   let categoryPlaceholder = allTasks[index].category;
   let idPlaceholder = allTasks[index].id;
   let statusPlaceholder = getPriorityValue(index);
@@ -133,10 +130,8 @@ async function updateExistingTask(index, task) {
   allTasks[index].id = idPlaceholder;
   allTasks[index].priority = statusPlaceholder;
   allTasks[index].category = categoryPlaceholder;
-  console.log(allTasks[index]);
 
   await updateTask(structuredClone(allTasks[index]), localStorage.getItem("token"), allTasks[index].id, index)
-  //await setItem("test_board", allTasks);
   allTasks[index].assigned = finalContactData
 
   setTimeout(() => {
@@ -165,9 +160,6 @@ async function addNewTask(task) {
  */
 
 function handleLocation(index) {
-  console.log(window.location.href);
-  debugger
-  
   if (window.location.href == "https://join.kevin-mueller-dev.de/board.html" && index == undefined) {
     subtasks = [];
     closeOverlayAddTask(true);
@@ -214,8 +206,6 @@ function generateTaskState(index) {
   for (let i = 0; i < subtasks.length; i++) {
     const element = false;
     if (index != undefined) {
-      console.log(index);
-
       const value = allTasks[index].subtask.taskstate[i];
       if (value === true) {
         taskstateArray.push(value);

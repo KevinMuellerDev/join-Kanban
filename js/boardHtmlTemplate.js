@@ -61,14 +61,10 @@ function templateCardTopContent(task) {
 }
 
 function templateCardAssignee(assignee, color) {
-  console.log(color);
-  
   return `<div class="assignee" style="background-color:${color}" >${assignee}</div>`;
 }
 
 function templateTaskOverlay(task) {
-  console.log(task);
-  
   return `
       <div class="task-overlay-top">
           <div class="board-card-topic" style="background-color:${checkCategory(task.category)}">

@@ -55,7 +55,6 @@ function saveRememberMe() {
   let rememberMe = document.getElementById('rememberMe').checked;
   var username = document.getElementById("username").value;
   var password = document.getElementById("password").value;
-  console.log(rememberMe);
 
   if (rememberMe) {
     localStorage.setItem('rememberedUsername', username);

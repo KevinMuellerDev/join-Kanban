@@ -52,7 +52,6 @@ function allowDrop(ev) {
 function startDragging(id) {
   draggedTask = allTasks.findIndex(task => task.id === id)
   currentDraggedElement = draggedTask;
-  console.log(draggedTask);
   
 }
 
@@ -63,16 +62,12 @@ function startDragging(id) {
  * @author Kevin Mueller
  */
 async function moveTo(id) {
-  console.log(allTasks[currentDraggedElement]);
-  
   allTasks[currentDraggedElement].in_progress = false;
   allTasks[currentDraggedElement].await_feedback = false;
   allTasks[currentDraggedElement].done = false;
   let assigneeIds = structuredClone(allTasks[currentDraggedElement].assigned).map(task => task.id)
-  console.log(allTasks[currentDraggedElement].assigned);
   allTasks[currentDraggedElement].assigned = assigneeIds
-  console.log(allTasks[currentDraggedElement].assigned);
-  
+
 
   if (id == "in-progress") {
     allTasks[currentDraggedElement].in_progress = true;
@@ -249,8 +244,6 @@ function displaySearchInfo() {
  */
 function invertSvgFillsEdit(value) {
   let priorityIcon = value;
-  console.log(priorityIcon);
-  
   let urgentIcon = document.getElementById("urgent-icon-edit");
   let mediumIcon = document.getElementById("medium-icon-edit");
   let lowIcon = document.getElementById("low-icon-edit");

@@ -4,9 +4,7 @@
  * @author Kevin Mueller
  */
 async function initUnregistered(){
-    logedInUser = localStorage.getItem("username");
-    console.log(logedInUser);
-    
+    logedInUser = localStorage.getItem("username");    
     
     if (logedInUser === null) {
         addCss('../styles/unregistered.css');
